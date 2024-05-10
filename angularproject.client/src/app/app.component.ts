@@ -31,6 +31,16 @@ export class AppComponent implements OnInit {
         console.error(error);
       }
     );
+
+    this.http.get<object[]>('/api/expertisesector').subscribe(
+      (result) => {
+        console.log(result)
+      },
+      (error) => {
+        console.log(error)
+      }
+    )
+
   }
 
   title = 'angularproject.client';
