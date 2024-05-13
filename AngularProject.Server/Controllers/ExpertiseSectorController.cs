@@ -1,6 +1,7 @@
 ﻿using AngularProject.Server.Models.Common;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace AngularProject.Server.Controllers
 {
@@ -18,7 +19,11 @@ namespace AngularProject.Server.Controllers
         [HttpGet(Name = "GetExpertiseSector")]
         public IEnumerable<ExpertiseSector> Get()
         {
-            return commonContext.ExpertiseSectors.ToList();
+            return commonContext.ExpertiseSectors
+                .AsNoTracking()
+                .Include(i => i.ExpertiseSectorMappingChildSectors).DefaultIfEmpty()
+                .Include(i => i.ExpertiseSectorMappingSectors).DefaultIfEmpty()
+                .ToList();
         }
     }
 }

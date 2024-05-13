@@ -1,6 +1,6 @@
 ﻿
 Common
 
-Scaffold-DbContext Name=CommonDbConnectionString -Provider Microsoft.EntityFrameworkCore.SqlServer -Force -OutputDir Models/Common -Tables [dbo].[ExpertiseSector]
+Scaffold-DbContext Name=CommonDbConnectionString -Provider Microsoft.EntityFrameworkCore.SqlServer -Force -OutputDir Models/Common -Tables [dbo].[ExpertiseSector], [dbo].[ExpertiseSectorMapping]
 
 

@@ -17,6 +17,8 @@ public partial class CommonContext : DbContext
 
     public virtual DbSet<ExpertiseSector> ExpertiseSectors { get; set; }
 
+    public virtual DbSet<ExpertiseSectorMapping> ExpertiseSectorMappings { get; set; }
+
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         => optionsBuilder.UseSqlServer("Name=CommonDbConnectionString");
 
@@ -55,6 +57,28 @@ public partial class CommonContext : DbContext
                 .HasMaxLength(1)
                 .IsUnicode(false);
             entity.Property(e => e.UpdatedOn).HasDefaultValueSql("(getdate())");
+        });
+
+        modelBuilder.Entity<ExpertiseSectorMapping>(entity =>
+        {
+            entity.ToTable("ExpertiseSectorMapping");
+
+            entity.HasIndex(e => new { e.ChildSectorId, e.SectorId }, "IX_ExpertiseSectorMapping")
+                .IsUnique()
+                .HasFillFactor(100);
+
+            entity.Property(e => e.CreatedOn).HasDefaultValueSql("(getdate())");
+            entity.Property(e => e.UpdatedOn).HasDefaultValueSql("(getdate())");
+
+            entity.HasOne(d => d.ChildSector).WithMany(p => p.ExpertiseSectorMappingChildSectors)
+                .HasForeignKey(d => d.ChildSectorId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_ExpertiseSectorMapping_ExpertiseSector");
+
+            entity.HasOne(d => d.Sector).WithMany(p => p.ExpertiseSectorMappingSectors)
+                .HasForeignKey(d => d.SectorId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_ExpertiseSectorMapping_ExpertiseSector1");
         });
 
         OnModelCreatingPartial(modelBuilder);

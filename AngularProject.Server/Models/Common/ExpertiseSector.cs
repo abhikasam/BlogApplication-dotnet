@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text.Json.Serialization;
 
 namespace AngularProject.Server.Models.Common;
 
@@ -34,4 +35,8 @@ public partial class ExpertiseSector
     public string ParentDLDisplayName { get; set; }
 
     public string ParentDLEmailId { get; set; }
+    //[JsonIgnore]
+    public virtual ICollection<ExpertiseSectorMapping> ExpertiseSectorMappingChildSectors { get; set; } = new List<ExpertiseSectorMapping>();
+    //[JsonIgnore]
+    public virtual ICollection<ExpertiseSectorMapping> ExpertiseSectorMappingSectors { get; set; } = new List<ExpertiseSectorMapping>();
 }
