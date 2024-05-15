@@ -1,6 +1,5 @@
 using AngularProject.Server;
-using AngularProject.Server.Models.Common;
-using Microsoft.AspNetCore.Http.Json;
+using AngularProject.Server.Models.Blog;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -17,11 +16,10 @@ builder.Services.AddControllers().AddNewtonsoftJson(opt =>
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-builder.Services.AddDbContext<CommonContext>(options =>
+builder.Services.AddDbContext<BlogContext>(options =>
 {
-    options.UseSqlServer(Startup.CommonDbConnectionString);
+    options.UseSqlServer(Startup.BlogDbConnectionString);
 });
-
 
 var app = builder.Build();
 

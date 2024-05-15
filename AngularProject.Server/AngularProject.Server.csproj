@@ -5,7 +5,7 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <SpaRoot>..\angularproject.client</SpaRoot>
     <SpaProxyLaunchCommand>npm start</SpaProxyLaunchCommand>
-    <SpaProxyServerUrl>https://localhost:4200</SpaProxyServerUrl>
+    <SpaProxyServerUrl>https://localhost:4220</SpaProxyServerUrl>
   </PropertyGroup>
 
   <ItemGroup>
@@ -46,6 +46,10 @@
     <ProjectReference Include="..\angularproject.client\angularproject.client.esproj">
       <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
     </ProjectReference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Models\BlogExtensions\" />
   </ItemGroup>
 
 </Project>

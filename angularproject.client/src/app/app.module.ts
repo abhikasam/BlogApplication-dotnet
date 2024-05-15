@@ -3,15 +3,23 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppComponent } from './app.component';
-import { ExpertiseModule } from '../components/expertise/expertise.module';
 import { CommonModule } from '@angular/common';
+import { SharedModule } from '../shared/shared.module';
+import { RouterModule } from '@angular/router';
+import { AppRoutingModule, routes } from './app-routing.module';
+import { ArticleModule } from '../components/article/article.module';
 
 @NgModule({
   declarations: [
     AppComponent
   ],
   imports: [
-    BrowserModule, HttpClientModule, ExpertiseModule, CommonModule
+    BrowserModule,
+    HttpClientModule,
+    CommonModule,
+    AppRoutingModule,
+    ArticleModule,
+    SharedModule
   ],
   providers: [],
   bootstrap: [AppComponent]

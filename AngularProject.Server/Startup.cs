@@ -32,6 +32,18 @@
                 }
                 return _CommonDbConnectionString;
             }
-        } 
+        }
+        private static string _BlogDbConnectionString = null;
+        public static string BlogDbConnectionString
+        {
+            get
+            {
+                if (_BlogDbConnectionString == null)
+                {
+                    _BlogDbConnectionString = configuration.GetConnectionString("BlogDbConnectionString");
+                }
+                return _BlogDbConnectionString;
+            }
+        }
     }
 }
