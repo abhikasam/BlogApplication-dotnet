@@ -8,6 +8,7 @@ import { SharedModule } from '../shared/shared.module';
 import { RouterModule } from '@angular/router';
 import { AppRoutingModule, routes } from './app-routing.module';
 import { ArticleModule } from '../components/article/article.module';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   declarations: [
@@ -19,7 +20,8 @@ import { ArticleModule } from '../components/article/article.module';
     CommonModule,
     AppRoutingModule,
     ArticleModule,
-    SharedModule
+    SharedModule,
+    NgbModule
   ],
   providers: [],
   bootstrap: [AppComponent]

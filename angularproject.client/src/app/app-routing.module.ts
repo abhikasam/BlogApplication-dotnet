@@ -1,12 +1,12 @@
 import { RouterModule, Routes } from "@angular/router";
 import { NgModule } from "@angular/core";
-import { BodyComponent } from "../shared/body/body.component";
+import { FullComponent } from "../shared/full/full.component";
 
 
 export const routes: Routes = [
   {
     path: '',
-    component: BodyComponent,
+    component: FullComponent,
     children: [
       {
         path: '',

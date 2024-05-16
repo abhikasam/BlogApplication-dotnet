@@ -1,0 +1,17 @@
+// 
+// Xtreme Angular
+// 
+
+//(Required file)
+@import "variable";
+
+//This is for the components (Required file)
+@import "core/core";
+@import "scafholdings";
+@import "components";
+
+//This is for the responsive (Required file)
+@import "responsive";
+
+//In This scss you can write your scss
+@import "custom";
