@@ -9,6 +9,7 @@ import { RouterModule } from '@angular/router';
 import { AppRoutingModule, routes } from './app-routing.module';
 import { ArticleModule } from '../components/article/article.module';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { CategoryModule } from '../components/category/category.module';
 
 @NgModule({
   declarations: [
@@ -21,7 +22,8 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     AppRoutingModule,
     ArticleModule,
     SharedModule,
-    NgbModule
+    NgbModule,
+    CategoryModule
   ],
   providers: [],
   bootstrap: [AppComponent]

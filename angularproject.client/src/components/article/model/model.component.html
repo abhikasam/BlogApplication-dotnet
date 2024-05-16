@@ -1,0 +1,25 @@
+<div class="card">
+  <div class="card-body">
+    <h4 class="card-title">
+      {{article.title}}
+    </h4>
+    <div class="row ms-01 align-items-center">
+        <div class="col-6 badge bg-warning text-start text-wrap-balance text-center">
+          {{article.author.authorName}}
+        </div>
+        <div class="col-6 publishedOn text-secondary text-end">
+          {{article.publishedOn | dateformat:'DD MMM yyyy' }}
+        </div>
+    </div>
+    <div>
+      <ng-container *ngFor="let articleCategory of article.articleCategories">
+        <a [routerLink]="['/categories',articleCategory.category.categoryId]" class="mb-1 me-2 badge bg-info category">
+          {{articleCategory.category.categoryName}}
+        </a>
+      </ng-container>
+    </div>
+    <p class="card-text">
+      {{article.content | textshorter:100}}
+    </p>
+  </div>
+</div>

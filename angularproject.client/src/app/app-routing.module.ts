@@ -16,6 +16,10 @@ export const routes: Routes = [
       {
         path: 'articles',
         loadChildren: () => import("./../components/article/article-routing.module").then(m => m.ArticleRoutingModule)
+      },
+      {
+        path: 'categories',
+        loadChildren: () => import("./../components/category/category-routing.module").then(m => m.CategoryRoutingModule)
       }
     ]
   }

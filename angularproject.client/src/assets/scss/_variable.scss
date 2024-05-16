@@ -179,6 +179,7 @@ $h4-font-size: 18px !default;
 $h5-font-size: 16px !default;
 $h6-font-size: 14px !default;
 
+$font-size-sm: $font-size-base * .875;
 
 $headings-margin-bottom: 8px !default;
 $headings-font-weight: 400 !default;
@@ -295,3 +296,11 @@ $grid-breakpoints: (
 // 
 $navbar-dark-color: rgba($white, 0.8) !default;
 $navbar-dark-hover-color: rgba($white, 1) !default;
+
+.text-wrap-balance{
+    text-wrap:balance;
+}
+
+.ms-01{
+    margin-left:0.1rem !important;
+}

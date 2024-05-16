@@ -22,8 +22,9 @@ namespace AngularProject.Server.Controllers
             return blogContext.Articles
                 //.AsSplitQuery()
                 .AsNoTracking()
-                .Include(i=>i.ArticleCategories).DefaultIfEmpty()
-                .Take(20)
+                .Include(i=>i.ArticleCategories).ThenInclude(i=>i.Category).DefaultIfEmpty()
+                .Include(i=>i.Author).DefaultIfEmpty()
+                .Take(100)
                 .ToList();
         }
     }
