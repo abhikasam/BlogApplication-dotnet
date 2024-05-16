@@ -45,7 +45,4 @@ export class ModelComponent implements OnInit {
       console.log(result)
     })
   }
-
-
-
 }

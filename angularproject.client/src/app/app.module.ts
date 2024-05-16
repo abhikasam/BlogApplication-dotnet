@@ -10,6 +10,7 @@ import { AppRoutingModule, routes } from './app-routing.module';
 import { ArticleModule } from '../components/article/article.module';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { CategoryModule } from '../components/category/category.module';
+import { AuthorModule } from '../components/author/author.module';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,8 @@ import { CategoryModule } from '../components/category/category.module';
     ArticleModule,
     SharedModule,
     NgbModule,
-    CategoryModule
+    CategoryModule,
+    AuthorModule
   ],
   providers: [],
   bootstrap: [AppComponent]

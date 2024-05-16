@@ -20,6 +20,10 @@ export const routes: Routes = [
       {
         path: 'categories',
         loadChildren: () => import("./../components/category/category-routing.module").then(m => m.CategoryRoutingModule)
+      },
+      {
+        path: 'authors',
+        loadChildren: () => import("./../components/author/author-routing.module").then(m => m.AuthorRoutingModule)
       }
     ]
   }
