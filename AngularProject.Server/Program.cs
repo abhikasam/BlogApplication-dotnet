@@ -1,5 +1,5 @@
-using AngularProject.Server;
-using AngularProject.Server.Models.Blog;
+using BlogApplication.Server;
+using BlogApplication.Server.Models.Blog;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);

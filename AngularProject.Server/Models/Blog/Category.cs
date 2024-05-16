@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace AngularProject.Server.Models.Blog;
+namespace BlogApplication.Server.Models.Blog;
 
 public partial class Category
 {

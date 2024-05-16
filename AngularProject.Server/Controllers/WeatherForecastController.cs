@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 
-namespace AngularProject.Server.Controllers
+namespace BlogApplication.Server.Controllers
 {
     [ApiController]
     [Route("[controller]")]

@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "angularproject.client": {
+    "blogapplication.client": {
       "projectType": "application",
       "schematics": {},
       "root": "",
@@ -13,7 +13,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/angularproject.client",
+            "outputPath": "dist/blogapplication.client",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": [
@@ -67,10 +67,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "angularproject.client:build:production"
+              "browserTarget": "blogapplication.client:build:production"
             },
             "development": {
-              "browserTarget": "angularproject.client:build:development"
+              "browserTarget": "blogapplication.client:build:development"
             }
           },
           "defaultConfiguration": "development",
@@ -81,7 +81,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "angularproject.client:build"
+            "browserTarget": "blogapplication.client:build"
           }
         },
         "test": {

@@ -14,7 +14,7 @@ using Humanizer;
 using System.Globalization;
 using Microsoft.VisualStudio.Web.CodeGeneration.EntityFrameworkCore;
 
-namespace AngularProject.Server.Code
+namespace BlogApplication.Server.Code
 {
     // Note: In VS2019 Preview 7, the IPluralizer interface does not get recognized at design time for use with DbScaffolding
     // The resolution is to edit ITOpsWebsite.csproj and comment out the IncludeAssets tag as shown below:

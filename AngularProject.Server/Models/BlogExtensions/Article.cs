@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 
-namespace AngularProject.Server.Models.Blog
+namespace BlogApplication.Server.Models.Blog
 {
     public partial class Article
     {

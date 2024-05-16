@@ -1,4 +1,4 @@
-namespace AngularProject.Server
+namespace BlogApplication.Server
 {
     public class WeatherForecast
     {

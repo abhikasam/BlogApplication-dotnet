@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.9.34607.119
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AngularProject.Server", "AngularProject.Server\AngularProject.Server.csproj", "{C2810083-30F4-4E45-9340-11E4FD815FD3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlogApplication.Server", "AngularProject.Server\BlogApplication.Server.csproj", "{C2810083-30F4-4E45-9340-11E4FD815FD3}"
 EndProject
-Project("{54A90642-561A-4BB1-A94E-469ADEE60C69}") = "angularproject.client", "angularproject.client\angularproject.client.esproj", "{D1BCD6BD-D77E-4DA2-A3B0-892520D2370B}"
+Project("{54A90642-561A-4BB1-A94E-469ADEE60C69}") = "blogapplication.client", "angularproject.client\blogapplication.client.esproj", "{D1BCD6BD-D77E-4DA2-A3B0-892520D2370B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

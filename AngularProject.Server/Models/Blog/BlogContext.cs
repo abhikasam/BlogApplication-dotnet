@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 
-namespace AngularProject.Server.Models.Blog;
+namespace BlogApplication.Server.Models.Blog;
 
 public partial class BlogContext : DbContext
 {

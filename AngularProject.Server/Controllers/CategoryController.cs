@@ -1,10 +1,10 @@
-﻿using AngularProject.Server.Models.Blog;
+﻿using BlogApplication.Server.Models.Blog;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using NuGet.Packaging;
 
-namespace AngularProject.Server.Controllers
+namespace BlogApplication.Server.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
