@@ -4,9 +4,9 @@
       {{article.title}}
     </h4>
     <div class="row ms-01 align-items-center">
-        <div class="col-6 badge bg-warning text-start text-wrap-balance text-center">
+        <a [routerLink]="['/authors',article.authorId]" class="col-6 badge bg-warning text-start text-wrap-balance text-center">
           {{article.author.authorName}}
-        </div>
+        </a>
         <div class="col-6 publishedOn text-secondary text-end">
           {{article.publishedOn | dateformat:'DD MMM yyyy' }}
         </div>

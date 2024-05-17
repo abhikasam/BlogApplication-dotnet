@@ -10,6 +10,5 @@ export class ModelComponent implements OnInit {
   @Input() article: Article = new Article()
 
   ngOnInit(): void {
-    console.log(this.article)
   }
 }

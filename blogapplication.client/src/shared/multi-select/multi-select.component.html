@@ -1,0 +1,17 @@
+<div class="{{label}} row align-item-center">
+  <div class="col-2">
+    {{label}} :
+  </div>
+  <div class="col-10">
+    <span class="m-1 badge bg-{{borderColor}}" *ngFor="let item of getSelected()">
+      {{item.value}}
+      <i class="bi bi-trash3-fill cursor-pointer" (click)="remove(item.key)"></i>
+    </span>
+    <select (change)="select($event)">
+      <option value="0">-Select-</option>
+      <option *ngFor="let item of getRemaining()" [value]="item.key">
+        {{item.value}}
+      </option>
+    </select>
+  </div>
+</div>

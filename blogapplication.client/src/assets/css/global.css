@@ -1,0 +1,11 @@
+.text-wrap-balance {
+  text-wrap: balance;
+}
+
+.ms-01 {
+  margin-left: 0.1rem !important;
+}
+
+.cursor-pointer {
+  cursor: pointer;
+}
