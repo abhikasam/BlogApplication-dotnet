@@ -1,9 +1,15 @@
 
 export class PaginatedResult <T>{
   constructor(
-    public pageNumber: number = 0,
-    public totalPageNumber: number = 0,
-    public pageSize: number = 0,
-    public result:T[]=[]
+    public paginationParams: PaginationParams = new PaginationParams(),
+    public data:T[]=[]
+  ) { }
+}
+
+export class PaginationParams {
+  constructor(
+    public pageNumber: number = 1,
+    public totalPageNumber: number = 1,
+    public pageSize: number = 10
   ) { }
 }
