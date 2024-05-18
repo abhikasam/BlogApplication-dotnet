@@ -6,6 +6,7 @@ import { AuthorService } from '../../../services/author.service';
 import { CategoryService } from '../../../services/category.service';
 import { Author } from '../../../model/author.model';
 import { KeyPair } from '../../../model/keypair.model';
+import { PaginatedResult } from '../../../model/paginatedResult.model';
 
 @Component({
   selector: 'article-index',
@@ -14,6 +15,9 @@ import { KeyPair } from '../../../model/keypair.model';
 })
 export class IndexComponent implements OnInit {
   articles: Article[] = []
+
+  articleFilter: ArticleFilter = new ArticleFilter()
+  paginatedArticles: PaginatedResult<Article> = new PaginatedResult()
   
   constructor(
     private articleService: ArticleService,
@@ -22,14 +26,32 @@ export class IndexComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.articleService.getArticles().subscribe(result => {
-      this.articles = result
+    this.articleService.getArticles().subscribe(res => {
+      this.paginatedArticles = res
+      console.log(res)
     })
   }
 
   updateArticles(filter: ArticleFilter) {
-    this.articleService.updateArticles(filter).subscribe(res => {
-      this.articles=res
+    this.articleFilter = filter
+    this.articleService.updateArticles(this.articleFilter).subscribe(res => {
+      this.paginatedArticles=res
+    })
+  }
+
+  changePageSize(event: any) {
+    this.articleFilter.pageSize = event.target.value
+    this.articleService.updateArticles(this.articleFilter).subscribe(res => {
+      this.paginatedArticles = res
+      console.log(this.paginatedArticles)
+    })
+  }
+
+  updatePage(page: any) {
+    this.articleFilter.pageNumber = page
+    this.articleService.updateArticles(this.articleFilter).subscribe(res => {
+      this.paginatedArticles = res
+      console.log(this.paginatedArticles)
     })
   }
 
