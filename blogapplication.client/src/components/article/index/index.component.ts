@@ -40,17 +40,8 @@ export class IndexComponent implements OnInit {
     })
   }
 
-  changePageSize(event: any) {
-    this.paginationParams.pageSize = event.target.value
-    this.articleService.updateArticles(this.articleFilter, this.paginationParams).subscribe(res => {
-      this.paginationParams = res.paginationParams
-      this.articles = res.data
-    })
-  }
-
-  updatePage(page: any) {
-    this.paginationParams.pageNumber = page
-    this.articleService.updateArticles(this.articleFilter, this.paginationParams).subscribe(res => {
+  updatePage(paginationParams: PaginationParams) {
+    this.articleService.updateArticles(this.articleFilter, paginationParams).subscribe(res => {
       this.paginationParams = res.paginationParams
       this.articles = res.data
     })

@@ -1,28 +1,7 @@
 
 <article-filter (update)="updateArticles($event)"></article-filter>
 
-<div class="row align-items-center ms-1">
-  <div class="bg-white col-2 p-1">
-    <label>Page Size :</label>
-    <select class="ms-1" [value]="paginationParams.pageSize" (change)="changePageSize($event)">
-      <option value="10">10</option>
-      <option value="25">25</option>
-      <option value="50">50</option>
-    </select>
-    </div>
-    <div class="col-10">
-      <ngb-pagination [collectionSize]="paginationParams.pageSize*paginationParams.totalPageNumber"
-                      [(page)]="paginationParams.pageNumber"
-                      class="d-flex justify-content-end"
-                      [maxSize]="5"
-                      [pageSize]="paginationParams.pageSize"
-                      [rotate]="true"
-                      [ellipses]="false"
-                      (pageChange)="updatePage($event)"
-                      [boundaryLinks]="true"></ngb-pagination>
-
-    </div>
-  </div>
+<pagination (update)="updatePage($event)" [params]="paginationParams"></pagination>
 
 <div class="row">
   <div class="col-lg-3 col-md-6" *ngFor="let article of articles">

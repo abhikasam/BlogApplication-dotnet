@@ -1,0 +1,22 @@
+<div class="row align-items-center ms-1">
+  <div class="bg-white col-2 p-1">
+    <label>Page Size :</label>
+    <select class="ms-1" [value]="params.pageSize" (change)="changePageSize($event)">
+      <option value="10">10</option>
+      <option value="25">25</option>
+      <option value="50">50</option>
+    </select>
+  </div>
+  <div class="col-10">
+    <ngb-pagination [collectionSize]="params.pageSize*params.totalPageNumber"
+                    [(page)]="params.pageNumber"
+                    class="d-flex justify-content-end"
+                    [maxSize]="5"
+                    [pageSize]="params.pageSize"
+                    [rotate]="true"
+                    [ellipses]="false"
+                    (pageChange)="updatePage($event)"
+                    [boundaryLinks]="true"></ngb-pagination>
+
+  </div>
+</div>
