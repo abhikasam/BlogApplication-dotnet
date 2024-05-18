@@ -14,14 +14,7 @@ import { KeyPair } from '../../../model/keypair.model';
 })
 export class IndexComponent implements OnInit {
   articles: Article[] = []
-  articleFilter: ArticleFilter = new ArticleFilter()
-
-  authors: KeyPair[] = []
-  categories: KeyPair[] = []
-
-  selectedAuthors: string[] = []
-  selectedCategories: string[] = []
-
+  
   constructor(
     private articleService: ArticleService,
     private authorService: AuthorService,
@@ -32,27 +25,10 @@ export class IndexComponent implements OnInit {
     this.articleService.getArticles().subscribe(result => {
       this.articles = result
     })
-
-    this.categoryService.getCategories().subscribe(res => {
-      this.categories = res.map(i => new KeyPair(i.categoryId.toString(), i.categoryName))
-    })
-
-    this.authorService.getAuthors().subscribe(res => {
-      this.authors = res.map(i => new KeyPair(i.authorId.toString(), i.authorName))
-    })
   }
 
-  selectAuthors(items: string[]) {
-    this.selectedAuthors = items
-  }
-
-  selectCategories(items: string[]) {
-    this.selectedCategories = items
-  }
-
-  updateArticles() {
-    this.articleFilter = new ArticleFilter(this.selectedAuthors, this.selectedCategories)
-    this.articleService.updateArticles(this.articleFilter).subscribe(res => {
+  updateArticles(filter: ArticleFilter) {
+    this.articleService.updateArticles(filter).subscribe(res => {
       this.articles=res
     })
   }

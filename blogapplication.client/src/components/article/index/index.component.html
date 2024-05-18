@@ -1,19 +1,5 @@
 
-<button class="btn btn-rounder btn-primary" (click)="updateArticles()">Update</button>
-
-<multi-select class="m-1" [data]="authors"
-              label="{{'Authors'}}"
-              [selected]="selectedAuthors"
-              borderColor="{{'warning'}}"
-              (selectedItems)="selectAuthors($event)">
-</multi-select>
-
-<multi-select class="m-1" [data]="categories"
-              label="{{'Categories'}}"
-              [selected]="selectedCategories"
-              borderColor="{{'primary'}}"
-              (selectedItems)="selectCategories($event)">
-</multi-select>
+<article-filter (update)="updateArticles($event)"></article-filter>
 
 <div class="row">
   <div class="col-lg-3 col-md-6" *ngFor="let article of articles">

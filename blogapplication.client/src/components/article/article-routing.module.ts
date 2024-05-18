@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule, Routes } from '@angular/router';
 import { IndexComponent } from './index/index.component';
+import { ArticleViewComponent } from './article-view/article-view.component';
 
 const routes: Routes = [
   {
@@ -10,7 +11,10 @@ const routes: Routes = [
       {
         path:'',
         component: IndexComponent,
-        pathMatch: "full"
+      },
+      {
+        path: 'view',
+        component: ArticleViewComponent
       }
     ]
   }

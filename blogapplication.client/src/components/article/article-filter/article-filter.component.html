@@ -1,0 +1,28 @@
+<div class="card p-2">
+  <div class="row">
+    <div class="col-lg-2 text-center">
+      <button type="button" class="col-1 btn btn-rounder btn-primary w-50" (click)="collapse1.toggle()">Filters</button>
+    </div>
+    <div *ngIf="filterCollapse" class="col-lg-3">
+      <button type="button" class="col-2 btn btn-rounder btn-primary w-50"
+              (click)="onUpdate()">
+        Update
+      </button>
+    </div>
+  </div>
+  <div #collapse1="ngbCollapse" [ngbCollapse]="filterCollapse">
+    <multi-select class="m-1" [data]="authors"
+                  label="{{'Authors'}}"
+                  [selected]="selectedAuthors"
+                  borderColor="{{'warning'}}"
+                  (selectedItems)="selectAuthors($event)">
+    </multi-select>
+
+    <multi-select class="m-1" [data]="categories"
+                  label="{{'Categories'}}"
+                  [selected]="selectedCategories"
+                  borderColor="{{'info'}}"
+                  (selectedItems)="selectCategories($event)">
+    </multi-select>
+  </div>
+</div>
