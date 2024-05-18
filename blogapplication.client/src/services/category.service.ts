@@ -1,7 +1,7 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Category } from '../model/category.model';
-import { PaginationParams } from '../model/paginatedResult.model';
+import { XPagination } from '../model/xpagination.model';
 
 @Injectable({
   providedIn: 'root'
@@ -16,10 +16,12 @@ export class CategoryService {
     return this.http.get<Category[]>('/api/category')
   }
 
-  getCategory(id: number, paginationParams: PaginationParams) {
-    var pageSize = paginationParams.pageSize
-    var pageNumber = paginationParams.pageNumber
-    return this.http.get<Category>('/api/category/' + id + '/' + pageSize + '/' + pageNumber)
+  getCategory(id: number, xpagination: XPagination) {
+    var paginationDetails = JSON.stringify(xpagination);
+    var httpHeaders = new HttpHeaders({
+      'x-pagination': paginationDetails
+    })
+    return this.http.get<any>('/api/category/' + id, { observe: 'response', headers: httpHeaders })
   }
 
 }

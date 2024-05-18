@@ -2,7 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { Author } from '../../../model/author.model';
 import { ActivatedRoute } from '@angular/router';
 import { AuthorService } from '../../../services/author.service';
-import { PaginationParams } from '../../../model/paginatedResult.model';
+import { XPagination } from '../../../model/xpagination.model';
 
 @Component({
   selector: 'author-model',
@@ -13,7 +13,7 @@ export class ModelComponent implements OnInit {
   @Input() author: Author = new Author()
   @Input() authorId: number = 0;
 
-  paginationParams: PaginationParams = new PaginationParams()
+  xpagination: XPagination = new XPagination()
 
   constructor
     (
@@ -38,22 +38,25 @@ export class ModelComponent implements OnInit {
       })
     }
     else if (!this.author) {
-      console.log(this.author, this.authorId)
       this.fetchAuthor()
     }
   }
 
   fetchAuthor() {
-    this.authorService.getAuthor(this.authorId, this.paginationParams).subscribe((result: Author) => {
-      this.author = result;
-      this.paginationParams = result.paginationParams
+    this.authorService.getAuthor(this.authorId, this.xpagination).subscribe((result: any) => {
+      this.author = result.body as Author;
+      var paginationDetails = result.headers.get("x-pagination")
+      this.xpagination = JSON.parse(paginationDetails)
+      console.log(this.xpagination)
     })
   }
 
-  updatePage(paginationParams: any) {
-    this.authorService.getAuthor(this.authorId, paginationParams).subscribe((result: Author) => {
-      this.author = result;
-      this.paginationParams = result.paginationParams;
+  updatePage(xpagination: any) {
+    this.authorService.getAuthor(this.authorId, xpagination).subscribe((result: any) => {
+      this.author = result.body as Author;
+      var paginationDetails = result.headers.get("x-pagination")
+      this.xpagination = JSON.parse(paginationDetails)
+      console.log(this.xpagination.pageSize)
     })
   }
 

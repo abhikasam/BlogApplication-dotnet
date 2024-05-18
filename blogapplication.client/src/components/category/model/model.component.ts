@@ -2,7 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { Category } from '../../../model/category.model';
 import { ActivatedRoute } from '@angular/router';
 import { CategoryService } from '../../../services/category.service';
-import { PaginationParams } from '../../../model/paginatedResult.model';
+import { XPagination } from '../../../model/xpagination.model';
 
 @Component({
   selector: 'category-model',
@@ -13,7 +13,7 @@ export class ModelComponent implements OnInit {
   @Input() category: Category = new Category()
   @Input() categoryId: number = 0;
 
-  paginationParams: PaginationParams = new PaginationParams()
+  xpagination: XPagination = new XPagination()
 
   constructor
     (
@@ -44,18 +44,19 @@ export class ModelComponent implements OnInit {
   }
 
   fetchCategory() {
-    this.categoryService.getCategory(this.categoryId, this.paginationParams).subscribe((result: Category) => {
-      this.category = result;
-      this.paginationParams = result.paginationParams;
-      console.log(result)
+    this.categoryService.getCategory(this.categoryId, this.xpagination).subscribe((result: any) => {
+      this.category = result.body as Category;
+      var paginationDetails = result.headers.get("x-pagination")
+      this.xpagination = JSON.parse(paginationDetails)
     })
   }
 
-  updatePage(paginationParams: any) {
-    console.log(paginationParams)
-    this.categoryService.getCategory(this.categoryId, paginationParams).subscribe((result: Category) => {
-      this.category = result;
-      this.paginationParams = result.paginationParams;
+  updatePage(xpagination: XPagination) {
+    this.categoryService.getCategory(this.categoryId, xpagination).subscribe((result: any) => {
+      this.category = result.body as Category;
+      var paginationDetails = result.headers.get("x-pagination")
+      console.log(paginationDetails)
+      this.xpagination = JSON.parse(paginationDetails)
     })
   }
 

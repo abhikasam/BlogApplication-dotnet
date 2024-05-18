@@ -6,7 +6,7 @@ import { AuthorService } from '../../../services/author.service';
 import { CategoryService } from '../../../services/category.service';
 import { Author } from '../../../model/author.model';
 import { KeyPair } from '../../../model/keypair.model';
-import { PaginatedResult, PaginationParams } from '../../../model/paginatedResult.model';
+import { XPagination } from '../../../model/xpagination.model';
 
 @Component({
   selector: 'article-index',
@@ -17,33 +17,36 @@ export class IndexComponent implements OnInit {
   articles: Article[] = []
 
   articleFilter: ArticleFilter = new ArticleFilter()
-  paginationParams: PaginationParams = new PaginationParams()
+  xpagination: XPagination = new XPagination()
   
   constructor(
     private articleService: ArticleService
   ) { }
 
   ngOnInit(): void {
-    console.log(this.paginationParams)
-    this.articleService.getArticles().subscribe(res => {
-      this.paginationParams = res.paginationParams
-      this.articles = res.data
-      console.log(res)
+    this.articleService.getArticles().subscribe((result: any) => {
+      this.articles = result.body as Article[]
+      var paginationDetails = result.headers.get("x-pagination")
+      this.xpagination = JSON.parse(paginationDetails)
+      console.log(this.xpagination)
     })
   }
 
   updateArticles(filter: ArticleFilter) {
     this.articleFilter = filter
-    this.articleService.updateArticles(this.articleFilter, this.paginationParams).subscribe(res => {
-      this.paginationParams = res.paginationParams
-      this.articles = res.data
+    console.log(this.xpagination)
+    this.articleService.updateArticles(this.articleFilter, this.xpagination).subscribe((result: any) => {
+      this.articles = result.body as Article[]
+      var paginationDetails = result.headers.get("x-pagination")
+      this.xpagination = JSON.parse(paginationDetails)
     })
   }
 
-  updatePage(paginationParams: PaginationParams) {
-    this.articleService.updateArticles(this.articleFilter, paginationParams).subscribe(res => {
-      this.paginationParams = res.paginationParams
-      this.articles = res.data
+  updatePage(xpagination: XPagination) {
+    this.articleService.updateArticles(this.articleFilter, xpagination).subscribe((result: any) => {
+      this.articles = result.body as Article[]
+      var paginationDetails = result.headers.get("x-pagination")
+      this.xpagination = JSON.parse(paginationDetails)
     })
   }
 

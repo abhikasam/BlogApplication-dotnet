@@ -1,7 +1,9 @@
 
 <article-filter (update)="updateArticles($event)"></article-filter>
 
-<pagination (update)="updatePage($event)" [params]="paginationParams"></pagination>
+<pagination (update)="updatePage($event)"
+            [params]="xpagination"
+            ></pagination>
 
 <div class="row">
   <div class="col-lg-3 col-md-6" *ngFor="let article of articles">

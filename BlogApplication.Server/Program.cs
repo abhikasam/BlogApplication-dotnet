@@ -1,6 +1,10 @@
 using BlogApplication.Server;
+using BlogApplication.Server.Code;
 using BlogApplication.Server.Models.Blog;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -9,7 +13,11 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers().AddNewtonsoftJson(opt =>
 {
-    opt.SerializerSettings.ReferenceLoopHandling=Newtonsoft.Json.ReferenceLoopHandling.Ignore;
+    opt.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
+    opt.SerializerSettings.ContractResolver = new DefaultContractResolver()
+    {
+        NamingStrategy=new CamelCaseNamingStrategy()
+    };
 });
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle

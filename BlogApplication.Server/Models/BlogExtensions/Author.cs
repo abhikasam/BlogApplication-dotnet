@@ -6,6 +6,6 @@ namespace BlogApplication.Server.Models.Blog
     public partial class Author
     {
         [NotMapped]
-        public PaginationParams PaginationParams { get; set; }=new PaginationParams();
+        public XPagination XPagination { get; set; }=new XPagination();
     }
 }

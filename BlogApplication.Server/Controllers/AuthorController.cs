@@ -3,6 +3,9 @@ using BlogApplication.Server.Models.Blog;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Primitives;
+using Newtonsoft.Json;
+using NuGet.Packaging;
 
 namespace BlogApplication.Server.Controllers
 {
@@ -23,18 +26,17 @@ namespace BlogApplication.Server.Controllers
             return blogContext.Authors;
         }
 
-        [HttpGet("{id}/{pageSize}/{pageNumber}")]
-        public Author GetAuthor(int id,int pageSize,int pageNumber)
+        [HttpGet("{id}")]
+        public Author GetAuthor(int id)
         {
-            var author= blogContext.Authors
+            var xpagination = XPagination.GetXPagination(Request);
+            var author = blogContext.Authors
                     .AsNoTracking()
                     .Include(i => i.Articles).ThenInclude(i => i.ArticleCategories).ThenInclude(i=>i.Category).DefaultIfEmpty()
                     .Where(i => i.AuthorId == id).FirstOrDefault();
 
-            var paginatedArticles=PaginationResult<Article>.GetPaginatedResult(author.Articles.AsQueryable(),pageSize,pageNumber);
+            author.Articles=XPagination.GetPaginatedResult(author.Articles.AsQueryable(),xpagination).ToList();
 
-            author.Articles = paginatedArticles.Data.ToList();
-            author.PaginationParams = paginatedArticles.PaginationParams;
             foreach(var article in author.Articles)
             {
                 article.Author = new Author()
@@ -43,6 +45,8 @@ namespace BlogApplication.Server.Controllers
                     AuthorName = author.AuthorName
                 };
             }
+
+            xpagination.SetXPagination(Response);
 
             return author;
         }

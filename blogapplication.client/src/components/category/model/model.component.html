@@ -3,7 +3,8 @@
 </a>
 
 <pagination *ngIf="category.articleCategories.length"
-            (update)="updatePage($event)" [params]="paginationParams"></pagination>
+            (update)="updatePage($event)"
+            [params]="xpagination"></pagination>
 
 <div class="row" *ngIf="category.articleCategories.length">
   <div class="col-lg-3 col-md-6" *ngFor="let articleCategory of category.articleCategories">

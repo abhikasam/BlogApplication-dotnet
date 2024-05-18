@@ -3,6 +3,8 @@ using BlogApplication.Server.Models.Blog;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Primitives;
+using Newtonsoft.Json;
 using NuGet.Packaging;
 
 namespace BlogApplication.Server.Controllers
@@ -23,36 +25,64 @@ namespace BlogApplication.Server.Controllers
             return blogContext.Categories;
         }
 
-        [HttpGet("{id}/{pageSize}/{pageNumber}")]
-        public Category GetCategory(int id,int pageSize,int pageNumber)
+        [HttpGet("{id}")]
+        public Category GetCategory(int id)
         {
-            var category=blogContext.Categories
-                        .AsNoTracking()
-                        .Include(i=>i.ArticleCategories).DefaultIfEmpty()    
-                        .Where(i=>i.CategoryId==id).FirstOrDefault();
+            var xpagination = XPagination.GetXPagination(Request);
 
-            var articleIds = category.ArticleCategories.Select(i=>i.ArticleId).ToList().AsQueryable();
+            var category =blogContext.Categories
+                        .Include(i=>i.ArticleCategories).ThenInclude(i=>i.Article).ThenInclude(i=>i.Author).DefaultIfEmpty()
+                        .Where(i=>i.CategoryId==id)
+                        .FirstOrDefault();
 
-            var paginatedArticleIds = PaginationResult<int>.GetPaginatedResult(articleIds, pageSize, pageNumber);
+            category.ArticleCategories = XPagination.GetPaginatedResult(category.ArticleCategories.AsQueryable()
+                            ,xpagination)
+                            .ToList();
 
-            category.ArticleCategories.Clear();
-            category.PaginationParams = paginatedArticleIds.PaginationParams;
-            foreach(var articleId in paginatedArticleIds.Data)
+            var result = new Category()
             {
-                var article=blogContext.Articles
-                                .AsNoTracking()
-                                .Include(i=>i.ArticleCategories).ThenInclude(i=>i.Category).DefaultIfEmpty()
-                                .Include(i=>i.Author).DefaultIfEmpty()
-                                .Where(i=>i.ArticleId==articleId).FirstOrDefault();
-                category.ArticleCategories.Add(new ArticleCategory()
+                CategoryId=category.CategoryId,
+                CategoryName=category.CategoryName
+            };
+
+            foreach (var item in category.ArticleCategories)
+            {
+                result.ArticleCategories.Add(new ArticleCategory()
                 {
-                    Article=article,
-                    CategoryId=category.CategoryId,
-                    ArticleId=articleId
+                    CategoryId = item.CategoryId,
+                    ArticleCategoryId=item.ArticleCategoryId,
+                    ArticleId=item.ArticleId,
+                    Article=new Article()
+                    {
+                        ArticleId=item.ArticleId,
+                        Author=new Author()
+                        {
+                            AuthorId=item.Article.AuthorId,
+                            AuthorName=item.Article.Author.AuthorName
+                        },
+                        Content=item.Article.Content,
+                        Title=item.Article.Title,
+                        Url=item.Article.Url,
+                        PublishedOn=item.Article.PublishedOn,
+                        AuthorId=item.Article.AuthorId,
+                        ArticleCategories=item.Article.ArticleCategories.Select(j=>new ArticleCategory()
+                        {
+                            ArticleCategoryId = j.ArticleCategoryId,
+                            ArticleId=j.ArticleId,
+                            CategoryId=j.CategoryId,
+                            Category=new Category()
+                            {
+                                CategoryId=j.CategoryId,
+                                CategoryName=j.Category.CategoryName
+                            }
+                        }).ToList()
+                    }
                 });
             }
 
-            return category;
+            xpagination.SetXPagination(Response);
+
+            return result;
         }
     }
 }
