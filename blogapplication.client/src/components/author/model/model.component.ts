@@ -2,6 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { Author } from '../../../model/author.model';
 import { ActivatedRoute } from '@angular/router';
 import { AuthorService } from '../../../services/author.service';
+import { PaginationParams } from '../../../model/paginatedResult.model';
 
 @Component({
   selector: 'author-model',
@@ -11,6 +12,9 @@ import { AuthorService } from '../../../services/author.service';
 export class ModelComponent implements OnInit {
   @Input() author: Author = new Author()
   @Input() authorId: number = 0;
+
+  paginationParams: PaginationParams = new PaginationParams()
+
   constructor
     (
     private route: ActivatedRoute,
@@ -40,9 +44,17 @@ export class ModelComponent implements OnInit {
   }
 
   fetchAuthor() {
-    this.authorService.getAuthor(this.authorId).subscribe((result: Author) => {
+    this.authorService.getAuthor(this.authorId, this.paginationParams).subscribe((result: Author) => {
       this.author = result;
-      console.log(result)
+      this.paginationParams = result.paginationParams
     })
   }
+
+  updatePage(paginationParams: any) {
+    this.authorService.getAuthor(this.authorId, paginationParams).subscribe((result: Author) => {
+      this.author = result;
+      this.paginationParams = result.paginationParams;
+    })
+  }
+
 }

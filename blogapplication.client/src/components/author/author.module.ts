@@ -4,6 +4,7 @@ import { IndexComponent } from './index/index.component';
 import { ModelComponent } from './model/model.component';
 import { AuthorRoutingModule } from './author-routing.module';
 import { ArticleModule } from '../article/article.module';
+import { SharedModule } from '../../shared/shared.module';
 
 
 
@@ -13,7 +14,7 @@ import { ArticleModule } from '../article/article.module';
     ModelComponent
   ],
   imports: [
-    CommonModule, AuthorRoutingModule, ArticleModule
+    CommonModule, AuthorRoutingModule, ArticleModule, SharedModule
   ]
 })
 export class AuthorModule { }

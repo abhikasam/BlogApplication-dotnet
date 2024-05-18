@@ -4,7 +4,7 @@ namespace BlogApplication.Server.Code
 {
     public class PaginationResult<T>
     {
-        public static PaginatedResult<T> GetPaginatedResult(IQueryable<T> queryable,int pageNumber=1,int pageSize=10)
+        public static PaginatedResult<T> GetPaginatedResult(IQueryable<T> queryable,int pageSize=10,int pageNumber=1)
         {
             var totalRecords =  queryable.Count();
 

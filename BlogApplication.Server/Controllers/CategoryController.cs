@@ -1,4 +1,5 @@
-﻿using BlogApplication.Server.Models.Blog;
+﻿using BlogApplication.Server.Code;
+using BlogApplication.Server.Models.Blog;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -22,18 +23,21 @@ namespace BlogApplication.Server.Controllers
             return blogContext.Categories;
         }
 
-        [HttpGet("{id}")]
-        public Category GetCategory(int id)
+        [HttpGet("{id}/{pageSize}/{pageNumber}")]
+        public Category GetCategory(int id,int pageSize,int pageNumber)
         {
             var category=blogContext.Categories
                         .AsNoTracking()
                         .Include(i=>i.ArticleCategories).DefaultIfEmpty()    
                         .Where(i=>i.CategoryId==id).FirstOrDefault();
 
-            var articleIds = category.ArticleCategories.Select(i=>i.ArticleId).ToList();
+            var articleIds = category.ArticleCategories.Select(i=>i.ArticleId).ToList().AsQueryable();
+
+            var paginatedArticleIds = PaginationResult<int>.GetPaginatedResult(articleIds, pageSize, pageNumber);
 
             category.ArticleCategories.Clear();
-            foreach(var articleId in articleIds)
+            category.PaginationParams = paginatedArticleIds.PaginationParams;
+            foreach(var articleId in paginatedArticleIds.Data)
             {
                 var article=blogContext.Articles
                                 .AsNoTracking()

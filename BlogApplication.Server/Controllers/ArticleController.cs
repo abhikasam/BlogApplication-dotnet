@@ -46,7 +46,7 @@ namespace BlogApplication.Server.Controllers
                 .Where(i => authorIds.Count() == 0 || authorIds.Contains(i.AuthorId))
                 .Where(i => categoryIds.Count() == 0 || i.ArticleCategories.Select(i => i.CategoryId).Intersect(categoryIds).Count() > 0);
 
-            var paginatedArticles = PaginationResult<Article>.GetPaginatedResult(articles,pageNumber,pageSize);
+            var paginatedArticles = PaginationResult<Article>.GetPaginatedResult(articles, pageSize, pageNumber);
 
             return paginatedArticles;
         }

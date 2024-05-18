@@ -4,6 +4,7 @@ import { ModelComponent } from './model/model.component';
 import { IndexComponent } from './index/index.component';
 import { ArticleModule } from '../article/article.module';
 import { CategoryRoutingModule } from './category-routing.module';
+import { SharedModule } from '../../shared/shared.module';
 
 
 
@@ -12,7 +13,7 @@ import { CategoryRoutingModule } from './category-routing.module';
     ModelComponent, IndexComponent
   ],
   imports: [
-    CommonModule, ArticleModule,CategoryRoutingModule
+    CommonModule, ArticleModule, CategoryRoutingModule, SharedModule
   ]
 })
 export class CategoryModule { }

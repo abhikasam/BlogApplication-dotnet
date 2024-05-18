@@ -2,6 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { Category } from '../../../model/category.model';
 import { ActivatedRoute } from '@angular/router';
 import { CategoryService } from '../../../services/category.service';
+import { PaginationParams } from '../../../model/paginatedResult.model';
 
 @Component({
   selector: 'category-model',
@@ -11,6 +12,9 @@ import { CategoryService } from '../../../services/category.service';
 export class ModelComponent implements OnInit {
   @Input() category: Category = new Category()
   @Input() categoryId: number = 0;
+
+  paginationParams: PaginationParams = new PaginationParams()
+
   constructor
     (
     private route: ActivatedRoute,
@@ -40,9 +44,19 @@ export class ModelComponent implements OnInit {
   }
 
   fetchCategory() {
-    this.categoryService.getCategory(this.categoryId).subscribe((result: Category) => {
+    this.categoryService.getCategory(this.categoryId, this.paginationParams).subscribe((result: Category) => {
       this.category = result;
+      this.paginationParams = result.paginationParams;
       console.log(result)
     })
   }
+
+  updatePage(paginationParams: any) {
+    console.log(paginationParams)
+    this.categoryService.getCategory(this.categoryId, paginationParams).subscribe((result: Category) => {
+      this.category = result;
+      this.paginationParams = result.paginationParams;
+    })
+  }
+
 }
