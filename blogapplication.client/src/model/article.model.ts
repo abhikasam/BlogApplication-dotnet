@@ -12,6 +12,7 @@ export class Article {
     public publishedOn: Date = new Date(),
     public articleCategories: ArticleCategory[] = [],
     public author: Author = new Author(),
-    public categories: string[] =[]
+    public categories: Category[] = [],
+    public categoryIds: number[] = []
   ) { }
 }

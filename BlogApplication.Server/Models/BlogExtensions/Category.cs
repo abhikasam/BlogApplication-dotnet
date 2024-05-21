@@ -6,6 +6,16 @@ namespace BlogApplication.Server.Models.Blog
     public partial class Category
     {
         [NotMapped]
-        public XPagination XPagination { get; set; }=new XPagination();
+        public List<Article> Articles
+        {
+            get
+            {
+                if (ArticleCategories != null)
+                {
+                    return ArticleCategories.Select(i=>i.Article).ToList();
+                }
+                return new List<Article>();
+            }
+        }
     }
 }

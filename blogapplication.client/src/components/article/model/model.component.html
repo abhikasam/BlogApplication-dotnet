@@ -12,9 +12,9 @@
         </div>
     </div>
     <div>
-      <ng-container *ngFor="let articleCategory of article.articleCategories">
-        <a [routerLink]="['/categories',articleCategory.category.categoryId]" class="mb-1 me-2 badge bg-info category">
-          {{articleCategory.category.categoryName}}
+      <ng-container *ngFor="let category of article.categories">
+        <a [routerLink]="['/categories',category.categoryId]" class="mb-1 me-2 badge bg-info category">
+          {{category.categoryName}}
         </a>
       </ng-container>
     </div>

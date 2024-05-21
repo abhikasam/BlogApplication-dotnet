@@ -1,11 +1,14 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
+﻿using Microsoft.AspNetCore.Mvc;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace BlogApplication.Server.Models.Blog
 {
     public partial class Article
     {
         [NotMapped]
-        public string[] Categories
+        [Newtonsoft.Json.JsonIgnore]
+        public int[] CategoryIds
         {
             get
             {
@@ -13,10 +16,27 @@ namespace BlogApplication.Server.Models.Blog
                 {
                     if (ArticleCategories.All(i => i.Category != null))
                     {
-                        return ArticleCategories.Select(i => i.Category.CategoryName).ToArray();    
+                        return ArticleCategories.Select(i => i.CategoryId).ToArray();    
                     }
                 }
-                return new string[0];
+                return new int[0];
+            }
+        }
+
+        [NotMapped]
+        public List<Category> Categories
+        {
+            get
+            {
+                if (ArticleCategories != null && ArticleCategories.All(i=>i.Category!=null))
+                {
+                    return ArticleCategories.Select(i=>new Category()
+                    {
+                        CategoryId=i.CategoryId,
+                        CategoryName=i.Category.CategoryName
+                    }).ToList();
+                }
+                return new List<Category>();
             }
         }
     }

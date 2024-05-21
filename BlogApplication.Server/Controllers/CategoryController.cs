@@ -22,7 +22,8 @@ namespace BlogApplication.Server.Controllers
         [HttpGet(Name ="GetCategories")]
         public IEnumerable<Category> GetCategories()
         {
-            return blogContext.Categories;
+            var categories = blogContext.Categories;
+            return categories;
         }
 
         [HttpGet("{id}")]

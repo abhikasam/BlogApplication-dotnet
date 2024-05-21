@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace BlogApplication.Server.Models.Blog;
 
-public partial class BlogContext : DbContext
+public partial class BlogContext : IdentityDbContext<ApplicationUser>
 {
     public BlogContext()
     {
@@ -28,6 +29,8 @@ public partial class BlogContext : DbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
+        base.OnModelCreating(modelBuilder);
+
         modelBuilder.Entity<Article>(entity =>
         {
             entity.ToTable("Article");

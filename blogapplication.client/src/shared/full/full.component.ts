@@ -4,6 +4,7 @@ import { Router, RouterModule } from "@angular/router";
 import { NgbCollapseModule } from "@ng-bootstrap/ng-bootstrap";
 import { SidebarComponent } from "../sidebar/sidebar.component";
 import { NavigationComponent } from "../header/navigation.component";
+import { IdleService } from "../../services/idle.service";
 
 //declare var $: any;
 
@@ -16,7 +17,10 @@ import { NavigationComponent } from "../header/navigation.component";
 })
 export class FullComponent implements OnInit {
 
-  constructor(public router: Router) {}
+  constructor(
+    public router: Router,
+    public idleService: IdleService
+  ) { }
   public isCollapsed = false;
   public innerWidth: number = 0;
   public defaultSidebar: string = "";
@@ -34,6 +38,7 @@ export class FullComponent implements OnInit {
     }
     this.defaultSidebar = this.sidebartype;
     this.handleSidebar();
+    this.idleService.idleEndCallApi()
   }
 
   @HostListener("window:resize", ["$event"])
