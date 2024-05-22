@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { RouterModule, Routes } from '@angular/router';
 import { ModelComponent } from './model/model.component';
 import { IndexComponent } from './index/index.component';
+import { AuthGuard } from '../../services/auth-guard.service';
 
 const routes: Routes = [
   {

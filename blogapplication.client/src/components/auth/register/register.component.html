@@ -1,0 +1,127 @@
+<h4>
+  Register Here
+</h4>
+<form [formGroup]="registerForm" (submit)="onSubmit()" action="post">
+  <div class="container">
+    <div class="row rowpad5px align-items-center m-2">
+      <div class="col-3 text-end">
+        <label for="firstName">First Name</label>
+      </div>
+      <div class="col-3">
+        <input type="text"
+               [className]="'form-control '+
+               (( displayValidation.firstName && registerForm.get('firstName')!.invalid)?'error':'')"
+               formControlName="firstName"
+               (focus)="displayValidation.firstName=false"
+               (blur)="displayValidation.firstName=true"
+               />
+        <span class="text-danger"
+              *ngIf="displayValidation.firstName && registerForm.get('firstName')!.invalid">
+              First Name is invalid.
+        </span>
+      </div>
+    </div>
+    <div class="row rowpad5px align-items-center m-2">
+      <div class="col-3 text-end">
+        <label for="lastName">
+          Last Name
+        </label>
+      </div>
+      <div class="col-3">
+        <input type="text"
+               [className]="'form-control '+
+               (( displayValidation.lastName && registerForm.get('lastName')!.invalid)?'error':'')"
+               formControlName="lastName"
+               (focus)="displayValidation.lastName=false"
+               (blur)="displayValidation.lastName=true"
+               />
+        <span class="text-danger"
+              *ngIf="displayValidation.lastName && registerForm.get('lastName')!.invalid">
+          Last Name is invalid.
+        </span>
+      </div>
+    </div>
+    <div class="row rowpad5px align-items-center m-2">
+      <div class="col-3 text-end">
+        <label for="email">
+          Email
+        </label>
+      </div>
+      <div class="col-3">
+        <input type="text"
+               [className]="'form-control '+
+               (( displayValidation.email && registerForm.get('email')!.invalid)?'error':'')"
+               formControlName="email"
+               (focus)="displayValidation.email=false"
+               (blur)="displayValidation.email=true"
+               />
+        <div *ngIf="displayValidation.email">
+          <span class="text-danger"
+                *ngIf="registerForm.touched
+                                && registerForm.get('email')!.errors
+                                && registerForm.get('email')!.errors?.['uniqueEmail']
+                                ">
+            Email already taken.
+          </span>
+          <span class="text-danger"
+                *ngIf="registerForm.get('email')!.touched
+                                && registerForm.get('email')!.errors
+                                && !registerForm.get('email')!.errors?.['uniqueEmail']
+                                ">Email invalid.</span>
+          </div>
+        </div>
+    </div>
+    <div class="row rowpad5px align-items-center m-2">
+      <div class="col-3 text-end">
+        <label for="password">
+          Password
+        </label>
+      </div>
+      <div class="col-3">
+        <input type="password"
+               [className]="'form-control '+
+               (( displayValidation.password && registerForm.get('password')!.invalid)?'error':'')"
+               formControlName="password"
+               (focus)="displayValidation.password=false"
+               (blur)="displayValidation.password=true"
+               />
+        <span class="text-danger"
+              *ngIf="displayValidation.password && registerForm.get('password')!.invalid">
+              Password is invalid.
+        </span>
+      </div>
+    </div>
+    <div class="row rowpad5px align-items-center m-2">
+      <div class="col-3 text-end">
+        <label for="confirmPassword">
+          Confirm Password
+        </label>
+      </div>
+      <div class="col-3">
+        <input type="password"
+               [className]="'form-control '+
+               (( displayValidation.confirmPassword && ( registerForm.get('confirmPassword')!.invalid || registerForm.get('password')!.value!==registerForm.get('confirmPassword')!.value))?'error':'')"
+               formControlName="confirmPassword"
+               (focus)="displayValidation.confirmPassword=false"
+               (blur)="displayValidation.confirmPassword=true" />
+        <span class="text-danger"
+              *ngIf="displayValidation.confirmPassword && registerForm.get('confirmPassword')!.invalid">
+          Confirm Password is invalid.
+        </span>
+        <span class="text-danger"
+              *ngIf="displayValidation.confirmPassword && registerForm.get('password')!.valid && registerForm.get('confirmPassword')!.valid && registerForm.get('password')!.value!==registerForm.get('confirmPassword')!.value">Passwords didn't match.</span>
+      </div>
+    </div>
+    <div class="row rowpad5px m-2">
+      <div class="col-2"></div>
+      <div class="col-4 text-center">
+        <input type="submit"
+               class="btn btn-primary m-2"
+               value="Register"
+               [disabled]="!registerForm.valid || registerForm.get('password')!.value!==registerForm.get('confirmPassword')!.value"
+               />
+        <input type="reset" class="btn btn-secondary m-2" value="Clear" />
+      </div>
+    </div>
+  </div>
+</form>

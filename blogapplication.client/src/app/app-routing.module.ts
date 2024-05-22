@@ -1,6 +1,7 @@
 import { RouterModule, Routes } from "@angular/router";
 import { NgModule } from "@angular/core";
 import { FullComponent } from "../shared/full/full.component";
+import { AuthGuard } from "../services/auth-guard.service";
 
 
 export const routes: Routes = [
@@ -24,6 +25,10 @@ export const routes: Routes = [
       {
         path: 'authors',
         loadChildren: () => import("./../components/author/author-routing.module").then(m => m.AuthorRoutingModule)
+      },
+      {
+        path: 'auth',
+        loadChildren: () => import("./../components/auth/auth-routing.module").then(m => m.AuthRoutingModule)
       }
     ]
   }

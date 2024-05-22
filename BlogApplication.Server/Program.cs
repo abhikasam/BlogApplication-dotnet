@@ -47,13 +47,15 @@ builder.Services.Configure<IdentityOptions>(options =>
     options.Password.RequiredLength = 8;
     options.Password.RequireNonAlphanumeric = false;
     options.Password.RequireUppercase = true;
-    options.Password.RequireLowercase = false;
+    options.Password.RequireLowercase = true;
     options.Password.RequiredUniqueChars = 6;
 
     // Lockout settings
     options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(5);
     options.Lockout.MaxFailedAccessAttempts = 5;
     options.Lockout.AllowedForNewUsers = true;
+
+    options.SignIn.RequireConfirmedEmail= true;
 
     // User settings
     options.User.RequireUniqueEmail = true;

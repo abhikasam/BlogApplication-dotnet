@@ -13,6 +13,7 @@ import { CategoryModule } from '../components/category/category.module';
 import { AuthorModule } from '../components/author/author.module';
 import { NgIdleModule } from '@ng-idle/core';
 import { NgIdleKeepaliveModule } from '@ng-idle/keepalive';
+import { AuthModule } from '../components/auth/auth.module';
 
 @NgModule({
   declarations: [
@@ -28,6 +29,7 @@ import { NgIdleKeepaliveModule } from '@ng-idle/keepalive';
     NgbModule,
     CategoryModule,
     AuthorModule,
+    AuthModule,
     NgIdleModule.forRoot(),
     NgIdleKeepaliveModule.forRoot()
   ],
