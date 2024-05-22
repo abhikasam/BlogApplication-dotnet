@@ -1,9 +1,9 @@
 using BlogApplication.Server;
 using BlogApplication.Server.Code;
+using BlogApplication.Server.Models.Auth;
 using BlogApplication.Server.Models.Blog;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 
@@ -27,12 +27,17 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.AddDbContext<BlogContext>(options =>
 {
-    options.UseSqlServer(Startup.BlogDbConnectionString);
+    options.UseSqlServer(builder.Configuration.GetConnectionString("BlogDbConnectionString"));
+});
+
+builder.Services.AddDbContext<AuthContext>(options =>
+{
+    options.UseSqlServer(builder.Configuration.GetConnectionString("AuthDbConnectionString"));
 });
 
 builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
-    .AddEntityFrameworkStores<BlogContext>()
-    .AddDefaultTokenProviders();
+            .AddEntityFrameworkStores<AuthContext>()
+            .AddDefaultTokenProviders();
 
 
 builder.Services.Configure<IdentityOptions>(options =>

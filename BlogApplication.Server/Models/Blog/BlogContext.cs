@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace BlogApplication.Server.Models.Blog;
 
-public partial class BlogContext : IdentityDbContext<ApplicationUser>
+public partial class BlogContext : DbContext
 {
     public BlogContext()
     {
@@ -29,7 +29,6 @@ public partial class BlogContext : IdentityDbContext<ApplicationUser>
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        base.OnModelCreating(modelBuilder);
 
         modelBuilder.Entity<Article>(entity =>
         {

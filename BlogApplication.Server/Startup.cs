@@ -21,16 +21,16 @@
             Configuration = configuration;
         }
 
-        private static string _CommonDbConnectionString = null;
-        public static string CommonDbConnectionString
+        private static string _AuthDbConnectionString = null;
+        public static string AuthDbConnectionString
         {
             get
             {
-                if(_CommonDbConnectionString == null)
+                if(_AuthDbConnectionString == null)
                 {
-                    _CommonDbConnectionString = configuration.GetConnectionString("CommonDbConnectionString");
+                    _AuthDbConnectionString = configuration.GetConnectionString("AuthDbConnectionString");
                 }
-                return _CommonDbConnectionString;
+                return _AuthDbConnectionString;
             }
         }
         private static string _BlogDbConnectionString = null;
