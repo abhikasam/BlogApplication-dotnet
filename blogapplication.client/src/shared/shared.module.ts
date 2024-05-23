@@ -4,15 +4,17 @@ import { RouterModule } from '@angular/router';
 import { MultiSelectComponent } from './multi-select/multi-select.component';
 import { PaginationComponent } from './pagination/pagination.component';
 import { NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
+import { AccessDeniedComponent } from './access-denied/access-denied.component';
 
 
 
 @NgModule({
   declarations: [
     MultiSelectComponent,
-    PaginationComponent
+    PaginationComponent,
+    AccessDeniedComponent
   ],
-  exports: [MultiSelectComponent, PaginationComponent],
+  exports: [MultiSelectComponent, PaginationComponent, AccessDeniedComponent],
   imports: [
     CommonModule, RouterModule, NgbPaginationModule
   ]

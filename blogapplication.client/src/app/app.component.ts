@@ -27,11 +27,11 @@ export class AppComponent implements OnInit {
       console.log(response)
       if (response.isAuthenticated) {
         sessionStorage.setItem('isAuthenticated', 'true')
-        sessionStorage.setItem('claims', JSON.stringify(response.user.claims))
-        sessionStorage.setItem('roles', JSON.stringify(response.user.roles))
+        sessionStorage.setItem('claims', JSON.stringify(response.applicationUser.claims))
+        sessionStorage.setItem('roles', JSON.stringify(response.applicationUser.roles))
 
         this.authService.isAuthenticated = true;
-        this.authService.userDetails.next(response.user)
+        this.authService.userDetails.next(response.applicationUser)
       }
       else {
       }

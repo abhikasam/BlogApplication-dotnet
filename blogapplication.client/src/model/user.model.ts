@@ -4,7 +4,7 @@ export class UserSession {
     public isAuthenticated: boolean,
     public hasException: boolean,
     public message: string,
-    public user: UserDetails,
+    public applicationUser: UserDetails,
     public expiresIn: number
   ) { }
 }
