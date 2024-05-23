@@ -38,7 +38,6 @@ export class ModelComponent implements OnInit {
       })
     }
     else if (!this.category) {
-      console.log(this.category, this.categoryId)
       this.fetchCategory()
     }
   }
@@ -55,7 +54,6 @@ export class ModelComponent implements OnInit {
     this.categoryService.getCategory(this.categoryId, xpagination).subscribe((result: any) => {
       this.category = result.body as Category;
       var paginationDetails = result.headers.get("x-pagination")
-      console.log(paginationDetails)
       this.xpagination = JSON.parse(paginationDetails)
     })
   }

@@ -46,12 +46,13 @@ export class LoginComponent implements OnInit {
       if (this.responseMessage.statusCode === 1) {
         let userDetails: UserDetails = JSON.parse(JSON.stringify(response.data))
 
-        console.log(response.data)
-        sessionStorage.setItem('isAuthenticated', 'true')
+        sessionStorage.setItem('authenticated', 'true')
         sessionStorage.setItem('claims', JSON.stringify(userDetails.claims))
         sessionStorage.setItem('roles', JSON.stringify(userDetails.roles))
 
-        this.authService.isAuthenticated = true;
+        this.authService.authenticated = true;
+        this.authService.updateSidebar()
+        this.authService.updateMenubar()
         this.authService.userDetails.next(userDetails)
         setTimeout(() => {
           this.router.navigate(['/'])

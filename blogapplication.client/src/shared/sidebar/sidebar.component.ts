@@ -1,9 +1,10 @@
 import { Component, AfterViewInit, OnInit } from '@angular/core';
-import { ROUTES } from './menu-items';
+import { SIDEBAR_ROUTES } from './menu-items';
 import { RouteInfo } from './sidebar.metadata';
 import { Router, ActivatedRoute, RouterModule } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { CommonModule, NgIf } from '@angular/common';
+import { AuthService } from '../../services/auth.service';
 //declare var $: any;
 
 @Component({
@@ -28,11 +29,14 @@ export class SidebarComponent implements OnInit {
   constructor(
     private modalService: NgbModal,
     private router: Router,
-    private route: ActivatedRoute
-  ) {}
+    private route: ActivatedRoute,
+    private authService: AuthService
+  ) { }
 
   // End open close
   ngOnInit() {
-    this.sidebarnavItems = ROUTES.filter(sidebarnavItem => sidebarnavItem);
+    this.authService.sidebarItems.subscribe(items => {
+      this.sidebarnavItems=items
+    })
   }
 }

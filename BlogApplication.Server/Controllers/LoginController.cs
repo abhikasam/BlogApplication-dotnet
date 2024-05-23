@@ -27,12 +27,12 @@ namespace BlogApplication.Server.Controllers
         {
             try
             {
-                var isAuthenticated = User.Identity.IsAuthenticated;
-                if (!isAuthenticated)
+                var authenticated = User.Identity.IsAuthenticated;
+                if (!authenticated)
                 {
                     return new JsonResult(new
                     {
-                        IsAuthenticated = false,
+                        Authenticated = false,
                         HasException = false
                     });
                 }

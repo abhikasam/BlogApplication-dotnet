@@ -28,13 +28,11 @@ export class IndexComponent implements OnInit {
       this.articles = result.body as Article[]
       var paginationDetails = result.headers.get("x-pagination")
       this.xpagination = JSON.parse(paginationDetails)
-      console.log(this.xpagination)
     })
   }
 
   updateArticles(filter: ArticleFilter) {
     this.articleFilter = filter
-    console.log(this.xpagination)
     this.articleService.updateArticles(this.articleFilter, this.xpagination).subscribe((result: any) => {
       this.articles = result.body as Article[]
       var paginationDetails = result.headers.get("x-pagination")

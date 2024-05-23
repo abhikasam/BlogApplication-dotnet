@@ -1,6 +1,6 @@
 import { RouteInfo } from './sidebar.metadata';
 
-export const ROUTES: RouteInfo[] = [
+export const SIDEBAR_ROUTES: RouteInfo[] = [
  
   {
     path: '/dashboard',
@@ -8,7 +8,10 @@ export const ROUTES: RouteInfo[] = [
     icon: 'bi bi-speedometer2',
     class: '',
     extralink: false,
-    submenu: []
+    submenu: [],
+    authenticated: [true,false],
+    roles: [],
+    claims:[]
   },
   {
     path: '/articles',
@@ -16,7 +19,10 @@ export const ROUTES: RouteInfo[] = [
     icon: 'bi bi-newspaper',
     class: '',
     extralink: false,
-    submenu: []
+    submenu: [],
+    authenticated: [true],
+    roles: [],
+    claims:[]
   },
   {
     path: '/categories',
@@ -24,7 +30,10 @@ export const ROUTES: RouteInfo[] = [
     icon: 'bi bi-tag-fill',
     class: '',
     extralink: false,
-    submenu: []
+    submenu: [],
+    authenticated: [true],
+    roles: [],
+    claims:[]
   },
   {
     path: '/authors',
@@ -32,7 +41,10 @@ export const ROUTES: RouteInfo[] = [
     icon: 'bi bi-person-bounding-box',
     class: '',
     extralink: false,
-    submenu: []
+    submenu: [],
+    authenticated: [true],
+    roles: [],
+    claims: []
   },
   {
     path: '/component/card',
@@ -40,7 +52,10 @@ export const ROUTES: RouteInfo[] = [
     icon: 'bi bi-card-text',
     class: '',
     extralink: false,
-    submenu: []
+    submenu: [],
+    authenticated: [true],
+    roles: [],
+    claims: []
   },
   {
     path: '/component/dropdown',
@@ -48,7 +63,10 @@ export const ROUTES: RouteInfo[] = [
     icon: 'bi bi-menu-app',
     class: '',
     extralink: false,
-    submenu: []
+    submenu: [],
+    authenticated: [true],
+    roles: [],
+    claims: []
   },
   {
     path: '/component/pagination',
@@ -56,7 +74,10 @@ export const ROUTES: RouteInfo[] = [
     icon: 'bi bi-dice-1',
     class: '',
     extralink: false,
-    submenu: []
+    submenu: [],
+    authenticated: [true],
+    roles: [],
+    claims: []
   },
   {
     path: '/component/nav',
@@ -64,7 +85,10 @@ export const ROUTES: RouteInfo[] = [
     icon: 'bi bi-pause-btn',
     class: '',
     extralink: false,
-    submenu: []
+    submenu: [],
+    authenticated: [true],
+    roles: [],
+    claims: []
   },
   {
     path: '/component/table',
@@ -72,7 +96,10 @@ export const ROUTES: RouteInfo[] = [
     icon: 'bi bi-layout-split',
     class: '',
     extralink: false,
-    submenu: []
+    submenu: [],
+    authenticated: [true],
+    roles: [],
+    claims: []
   },
   {
     path: '/about',
@@ -80,6 +107,36 @@ export const ROUTES: RouteInfo[] = [
     icon: 'bi bi-people',
     class: '',
     extralink: false,
-    submenu: []
+    submenu: [],
+    authenticated: [true],
+    roles: [],
+    claims: []
   }
 ];
+
+
+export const MENUBAR_ROUTES: RouteInfo[] = [
+  {
+    path: '/auth/login',
+    title: 'Login',
+    icon: '',
+    class: '',
+    extralink: false,
+    submenu: [],
+    authenticated: [false],
+    roles: [],
+    claims: []
+  },
+  {
+    path: '/auth/register',
+    title: 'Register',
+    icon: '',
+    class: '',
+    extralink: false,
+    submenu: [],
+    authenticated: [false],
+    roles: [],
+    claims: []
+  },
+
+]

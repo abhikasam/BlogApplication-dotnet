@@ -47,7 +47,6 @@ export class ModelComponent implements OnInit {
       this.author = result.body as Author;
       var paginationDetails = result.headers.get("x-pagination")
       this.xpagination = JSON.parse(paginationDetails)
-      console.log(this.xpagination)
     })
   }
 
@@ -56,7 +55,6 @@ export class ModelComponent implements OnInit {
       this.author = result.body as Author;
       var paginationDetails = result.headers.get("x-pagination")
       this.xpagination = JSON.parse(paginationDetails)
-      console.log(this.xpagination.pageSize)
     })
   }
 

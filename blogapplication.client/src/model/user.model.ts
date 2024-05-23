@@ -1,7 +1,7 @@
 
 export class UserSession {
   constructor(
-    public isAuthenticated: boolean,
+    public authenticated: boolean,
     public hasException: boolean,
     public message: string,
     public applicationUser: UserDetails,

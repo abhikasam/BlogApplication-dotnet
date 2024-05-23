@@ -24,7 +24,6 @@ export class ArticleViewComponent implements OnInit {
       articleStr = (window.history.state as any).article
     }
     this.article = JSON.parse(articleStr)
-    console.log(this.article)
   }
 
 }

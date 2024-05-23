@@ -19,7 +19,7 @@ export const routes: Routes = [
         path: 'articles',
         canMatch: [CanloadService],
         data: {
-          isAuthenticated: true
+          authenticated: true
         },
         loadChildren: () => import("./../components/article/article-routing.module").then(m => m.ArticleRoutingModule)
       },
@@ -27,7 +27,7 @@ export const routes: Routes = [
         path: 'categories',
         canMatch: [CanloadService],
         data: {
-          isAuthenticated:true
+          authenticated:true
         },
         loadChildren: () => import("./../components/category/category-routing.module").then(m => m.CategoryRoutingModule)
       },
@@ -35,7 +35,7 @@ export const routes: Routes = [
         path: 'authors',
         canMatch: [CanloadService],
         data: {
-          isAuthenticated: true
+          authenticated: true
         },
         loadChildren: () => import("./../components/author/author-routing.module").then(m => m.AuthorRoutingModule)
       },
@@ -43,7 +43,7 @@ export const routes: Routes = [
         path: 'auth',
         canMatch: [CanloadService],
         data: {
-          isAuthenticated: false
+          authenticated: false
         },
         loadChildren: () => import("./../components/auth/auth-routing.module").then(m => m.AuthRoutingModule)
       },
