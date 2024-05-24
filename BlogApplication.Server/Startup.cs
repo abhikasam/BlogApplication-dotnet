@@ -102,6 +102,18 @@ namespace BlogApplication
         {
             _MemoryCache = memoryCache;
 
+            if (environment.IsDevelopment())
+            {
+                app.UseDeveloperExceptionPage();
+            }
+            else
+            {
+                app.UseExceptionHandler("/Home/Error");
+                app.UseHsts();
+            }
+
+            app.UseMiddleware<ExceptionMiddleware>();
+
             app.UseDefaultFiles();
             app.UseStaticFiles();
 

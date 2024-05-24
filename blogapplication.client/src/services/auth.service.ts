@@ -53,5 +53,4 @@ export class AuthService {
     routes = routes.filter(i => i.authenticated.includes(this.authenticated))
     this.menuItems.next(routes)
   }
-
 }

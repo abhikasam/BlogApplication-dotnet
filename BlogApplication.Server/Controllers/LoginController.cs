@@ -68,7 +68,8 @@ namespace BlogApplication.Server.Controllers
                 return new JsonResult(new
                 {
                     Authenticated = true,
-                    ApplicationUser = UserDetails.GetDetails(claims.AsEnumerable())
+                    ApplicationUser = UserDetails.GetDetails(claims.AsEnumerable()),
+                    ExpiresIn = expireTimeSpan.TotalSeconds
                 });
             }
             catch (Exception ex)

@@ -4,6 +4,7 @@ import { FullComponent } from "../shared/full/full.component";
 import { CanloadService } from "../services/canload.service";
 import { AccessDeniedComponent } from "../shared/access-denied/access-denied.component";
 import { DashboardComponent } from "../shared/dashboard/dashboard.component";
+import { ExceptionComponent } from "../shared/exception/exception.component";
 
 
 export const routes: Routes = [
@@ -56,6 +57,11 @@ export const routes: Routes = [
       {
         path: 'access-denied',
         component: AccessDeniedComponent,
+        pathMatch: "full"
+      },
+      {
+        path: 'error',
+        component: ExceptionComponent,
         pathMatch: "full"
       }
     ]

@@ -1,5 +1,5 @@
-import { HttpClientModule } from '@angular/common/http';
-import { NgModule, OnInit } from '@angular/core';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
+import { ErrorHandler, NgModule, OnInit } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppComponent } from './app.component';
@@ -14,6 +14,8 @@ import { AuthorModule } from '../components/author/author.module';
 import { NgIdleModule } from '@ng-idle/core';
 import { NgIdleKeepaliveModule } from '@ng-idle/keepalive';
 import { AuthModule } from '../components/auth/auth.module';
+import { GlobalErrorHandler } from '../services/global-error-handler';
+import { HttpErrorInterceptor } from '../services/http-error-interceptor';
 
 @NgModule({
   declarations: [
@@ -33,7 +35,14 @@ import { AuthModule } from '../components/auth/auth.module';
     NgIdleModule.forRoot(),
     NgIdleKeepaliveModule.forRoot()
   ],
-  providers: [],
+  providers: [
+    {
+      provide: ErrorHandler, useClass: GlobalErrorHandler
+    },
+    {
+      provide: HTTP_INTERCEPTORS, useClass: HttpErrorInterceptor, multi: true
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule{}

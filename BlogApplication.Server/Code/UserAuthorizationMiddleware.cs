@@ -65,7 +65,7 @@ namespace BlogApplication.Server.Code
                 else
                 {
                     await context.SignOutAsync(Startup.AuthenticationType);
-                    if (context.Request.Path != "/api/login")
+                    if (context.Request.Path != "/api/login" && context.Request.Method!="post")
                     {
                         context.Response.StatusCode = StatusCodes.Status404NotFound;
                         return;

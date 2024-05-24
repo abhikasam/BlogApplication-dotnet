@@ -6,6 +6,7 @@ import { PaginationComponent } from './pagination/pagination.component';
 import { NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
 import { AccessDeniedComponent } from './access-denied/access-denied.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
+import { ExceptionComponent } from './exception/exception.component';
 
 
 
@@ -14,9 +15,10 @@ import { DashboardComponent } from './dashboard/dashboard.component';
     MultiSelectComponent,
     PaginationComponent,
     AccessDeniedComponent,
-    DashboardComponent
+    DashboardComponent,
+    ExceptionComponent
   ],
-  exports: [MultiSelectComponent, PaginationComponent, AccessDeniedComponent, DashboardComponent],
+  exports: [MultiSelectComponent, PaginationComponent, AccessDeniedComponent, DashboardComponent, ExceptionComponent],
   imports: [
     CommonModule, RouterModule, NgbPaginationModule
   ]
