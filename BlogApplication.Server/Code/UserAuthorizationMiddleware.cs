@@ -36,7 +36,7 @@ namespace BlogApplication.Server.Code
                         contextClaims.Add((claim.ClaimType, claim.ClaimValue));
                     }
                 }
-                ClaimsIdentity claimsIdentity = new ClaimsIdentity(contextClaims.Select(i=> new Claim(i.Type,i.Value)), "Identity.Application");
+                ClaimsIdentity claimsIdentity = new ClaimsIdentity(contextClaims.Select(i=> new Claim(i.Type,i.Value)), Startup.AuthenticationType);
                 context.User=new ClaimsPrincipal(claimsIdentity);
                 var expiresAtClaim = context.User.Claims.Where(i => i.Type == "expires_at").FirstOrDefault();
                 if (expiresAtClaim != null)
@@ -53,7 +53,7 @@ namespace BlogApplication.Server.Code
                                             .ToList();
                             authContext.UserClaims.RemoveRange(removeClaims);
                             authContext.SaveChanges();
-                            await context.SignOutAsync("Identity.Application");
+                            await context.SignOutAsync(Startup.AuthenticationType);
                             if (context.Request.Path != "/api/login")
                             {
                                 context.Response.StatusCode = StatusCodes.Status404NotFound;
@@ -64,7 +64,12 @@ namespace BlogApplication.Server.Code
                 }
                 else
                 {
-                    await context.SignOutAsync("Identity.Application");
+                    await context.SignOutAsync(Startup.AuthenticationType);
+                    if (context.Request.Path != "/api/login")
+                    {
+                        context.Response.StatusCode = StatusCodes.Status404NotFound;
+                        return;
+                    }
                 }
                 //var claims = await userManager.GetClaimsAsync(user);
                 //var expiresAt = claims.Where(i => i.Type == "expires_at").FirstOrDefault();

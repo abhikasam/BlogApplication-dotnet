@@ -45,7 +45,7 @@ namespace BlogApplication.Server.Controllers
                 {
                     return new JsonResult(new
                     {
-                        IsAuthenticated = false,
+                        Authenticated = false,
                         HasException = false
                     });
                 }
@@ -60,23 +60,22 @@ namespace BlogApplication.Server.Controllers
 
                     return new JsonResult(new
                     {
-                        IsAuthenticated = false,
+                        Authenticated = false,
                         HasException = false
                     });
                 }
 
                 return new JsonResult(new
                 {
-                    isAuthenticated = true,
-                    ApplicationUser = UserDetails.GetDetails(claims.AsEnumerable()),
-                    expiresIn = (int)expireTimeSpan.TotalSeconds
+                    Authenticated = true,
+                    ApplicationUser = UserDetails.GetDetails(claims.AsEnumerable())
                 });
             }
             catch (Exception ex)
             {
                 return new JsonResult(new
                 {
-                    IsAuthenticated = false,
+                    Authenticated = false,
                     HasException = true,
                     ex.Message
                 });
@@ -125,12 +124,11 @@ namespace BlogApplication.Server.Controllers
                             await userManager.RemoveClaimsAsync(user, claims.Where(i => i.Type == "expires_at"));
                         }
 
-                        var sessionExpiresIn = configuration.GetValue<int>("SessionExpireMinutes");
+                        var claim = new Claim("expires_at", DateTime.Now.AddMinutes(Startup.SessionExpireMinutes).ToString());
 
-                        var claim = new Claim("expires_at", DateTime.Now.AddMinutes(sessionExpiresIn).ToString());
                         await userManager.AddClaimAsync(user, claim);
                         claims = await userManager.GetClaimsAsync(user);
-                        var claimIdentity = new ClaimsIdentity(claims,"Identity.Application");
+                        var claimIdentity = new ClaimsIdentity(claims,Startup.AuthenticationType);
                         HttpContext.User=new ClaimsPrincipal(claimIdentity);
                         claims = await userManager.GetClaimsAsync(user);
                         message.Data = UserDetails.GetDetails(claims.AsEnumerable());

@@ -115,8 +115,8 @@ namespace BlogApplication
             app.UseHttpsRedirection();
             app.UseRouting();
 
-            app.UserAuthenticationMiddleware();
             app.UseAuthentication();
+            app.UserAuthenticationMiddleware();
             app.UseAuthorization();
 
 
@@ -158,6 +158,9 @@ namespace BlogApplication
             }
         }
 
+        public static string AuthenticationType => configuration.GetValue<string>("AuthenticationType");
+
+        public static int SessionExpireMinutes => configuration.GetValue<int>("SessionExpireMinutes");
     }
 }
 

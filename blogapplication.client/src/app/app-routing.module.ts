@@ -3,6 +3,7 @@ import { NgModule } from "@angular/core";
 import { FullComponent } from "../shared/full/full.component";
 import { CanloadService } from "../services/canload.service";
 import { AccessDeniedComponent } from "../shared/access-denied/access-denied.component";
+import { DashboardComponent } from "../shared/dashboard/dashboard.component";
 
 
 export const routes: Routes = [
@@ -12,8 +13,13 @@ export const routes: Routes = [
     children: [
       {
         path: '',
-        redirectTo: '/articles',
+        redirectTo: '/dashboard',
         pathMatch: "full",
+      },
+      {
+        path: 'dashboard',
+        component: DashboardComponent,
+        pathMatch: 'full'
       },
       {
         path: 'articles',
