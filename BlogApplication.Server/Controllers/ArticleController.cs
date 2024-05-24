@@ -1,6 +1,7 @@
 ﻿using BlogApplication.Server.Code;
 using BlogApplication.Server.Models.Blog;
 using BlogApplication.Server.Models.BlogFilters;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -11,6 +12,7 @@ namespace BlogApplication.Server.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class ArticleController : ControllerBase
     {
         private readonly BlogContext blogContext;

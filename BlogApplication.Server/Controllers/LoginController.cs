@@ -130,6 +130,9 @@ namespace BlogApplication.Server.Controllers
                         var claim = new Claim("expires_at", DateTime.Now.AddMinutes(sessionExpiresIn).ToString());
                         await userManager.AddClaimAsync(user, claim);
                         claims = await userManager.GetClaimsAsync(user);
+                        var claimIdentity = new ClaimsIdentity(claims,"Identity.Application");
+                        HttpContext.User=new ClaimsPrincipal(claimIdentity);
+                        claims = await userManager.GetClaimsAsync(user);
                         message.Data = UserDetails.GetDetails(claims.AsEnumerable());
                     }
                     else
