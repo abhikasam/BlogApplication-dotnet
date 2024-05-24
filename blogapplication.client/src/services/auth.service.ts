@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { Register } from '../model/register.model';
 import { ResponseMessage } from '../model/response-message.model';
 import { Login } from '../model/login.model';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { UserDetails, UserSession } from '../model/user.model';
 import { RouteInfo } from '../shared/sidebar/sidebar.metadata';
 import { MENUBAR_ROUTES, SIDEBAR_ROUTES } from '../shared/sidebar/menu-items';
@@ -13,8 +13,7 @@ import { MENUBAR_ROUTES, SIDEBAR_ROUTES } from '../shared/sidebar/menu-items';
 })
 export class AuthService {
 
-  authenticated = false
-  roles: string[] = []
+  authenticated: BehaviorSubject<boolean> = new BehaviorSubject(false)
   claims: string[] = []
 
 
@@ -23,8 +22,18 @@ export class AuthService {
   sidebarItems = new BehaviorSubject<RouteInfo[]>([])
   menuItems = new BehaviorSubject<RouteInfo[]>([])
 
+  roles: BehaviorSubject<string[]> = new BehaviorSubject<string[]>([])
+  
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {
+    this.authenticated.subscribe((res) => {
+      this.updateMenubar()
+      this.updateSidebar()
+      if (!res) {
+        this.userDetails.next(new UserDetails())
+      }
+    })
+  }
 
   getUser(email: string) {
     return this.http.get<boolean>('/api/register?email='+email)
@@ -44,13 +53,30 @@ export class AuthService {
 
   updateSidebar() {
     var routes = SIDEBAR_ROUTES
-    routes = routes.filter(i => i.authenticated.includes(this.authenticated))
+    routes = routes.filter(i => i.authenticated.includes(this.authenticated.value))
     this.sidebarItems.next(routes)
   }
 
   updateMenubar() {
     var routes = MENUBAR_ROUTES
-    routes = routes.filter(i => i.authenticated.includes(this.authenticated))
+    routes = routes.filter(i => i.authenticated.includes(this.authenticated.value))
     this.menuItems.next(routes)
   }
+
+  signout() {
+    this.authenticated.next(false)
+    this.roles.next([])
+    this.userDetails.next(new UserDetails())
+    this.updateSidebar()
+    this.updateMenubar()
+  }
+
+  setRoles(roles: string[]) {
+    this.roles.next(roles)
+  }
+
+  getRoles() {
+    return this.roles.value
+  }
+
 }

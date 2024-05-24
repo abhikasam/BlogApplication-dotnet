@@ -25,7 +25,6 @@ export class ExceptionComponent implements OnInit {
     else {
       exception = (window.history.state as any).exception
     }
-    console.log(exception)
     this.exception = JSON.parse(exception)
   }
 

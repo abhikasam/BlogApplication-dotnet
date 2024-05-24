@@ -29,13 +29,12 @@ export class AppComponent implements OnInit {
         sessionStorage.setItem('claims', JSON.stringify(response.applicationUser.claims))
         sessionStorage.setItem('roles', JSON.stringify(response.applicationUser.roles))
 
-        this.authService.authenticated = true;
+        this.authService.authenticated.next(true);
         this.authService.userDetails.next(response.applicationUser)
       }
       else {
+        this.authService.authenticated.next(false)
       }
-      this.authService.updateSidebar()
-      this.authService.updateMenubar()
     })
   }  title = 'angularproject.client';
 }

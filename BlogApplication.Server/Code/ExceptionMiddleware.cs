@@ -29,7 +29,22 @@ namespace BlogApplication.Server.Code
         public static Task HandleExceptionAsync(HttpContext context, Exception ex)
         {
             context.Response.ContentType = "application/json";
-            context.Response.StatusCode=StatusCodes.Status500InternalServerError;
+            switch (ex)
+            {
+                case UnauthorizedAccessException _:
+                    if (context.User.Identity.IsAuthenticated)
+                    {
+                        context.Response.StatusCode = StatusCodes.Status404NotFound;
+                    }
+                    else
+                    {
+                        context.Response.StatusCode = StatusCodes.Status401Unauthorized;
+                    }
+                    break;
+                default:
+                    context.Response.StatusCode = StatusCodes.Status500InternalServerError;
+                    break;
+            }
             var response = new
             {
                 StatusCode = context.Response.StatusCode,

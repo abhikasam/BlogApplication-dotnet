@@ -16,6 +16,7 @@ import { NgIdleKeepaliveModule } from '@ng-idle/keepalive';
 import { AuthModule } from '../components/auth/auth.module';
 import { GlobalErrorHandler } from '../services/global-error-handler';
 import { HttpErrorInterceptor } from '../services/http-error-interceptor';
+import { DirectivesModule } from '../components/directives/directives.module';
 
 @NgModule({
   declarations: [

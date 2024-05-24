@@ -16,7 +16,6 @@ export class PaginationComponent implements OnInit {
   @Output() update: EventEmitter<XPagination> = new EventEmitter()
 
   ngOnInit(): void {
-    console.log(this.params)
   }
 
 

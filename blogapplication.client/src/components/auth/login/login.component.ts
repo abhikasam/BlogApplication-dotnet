@@ -14,9 +14,7 @@ import { UserDetails } from '../../../model/user.model';
 export class LoginComponent implements OnInit {
   responseMessage = new ResponseMessage();
   loginForm: FormGroup = new FormGroup({})
-
-  showEmailValidators = false;
-  showPasswordValidators = false;
+  displayValidation: DisplayValidation = new DisplayValidation()
 
   constructor(
     private fb: FormBuilder,
@@ -29,11 +27,11 @@ export class LoginComponent implements OnInit {
     this.loginForm = this.fb.group({
       email: ['', {
         validators: [Validators.required, Validators.email],
-        updateOn: 'blur'
+        updateOn: 'change'
       }],
       password: ['', {
         validators: [Validators.required],
-        updateOn: 'blur'
+        updateOn: 'change'
       }],
       rememberme: [false]
     })
@@ -50,9 +48,7 @@ export class LoginComponent implements OnInit {
         sessionStorage.setItem('claims', JSON.stringify(userDetails.claims))
         sessionStorage.setItem('roles', JSON.stringify(userDetails.roles))
 
-        this.authService.authenticated = true;
-        this.authService.updateSidebar()
-        this.authService.updateMenubar()
+        this.authService.authenticated.next(true)
         this.authService.userDetails.next(userDetails)
         setTimeout(() => {
           this.router.navigate(['/'])
@@ -60,4 +56,18 @@ export class LoginComponent implements OnInit {
       }
     })
   }
+}
+
+class DisplayValidation {
+  constructor(
+    public email: boolean = false,
+    public password: boolean = false
+  )
+  { }
+
+  displayAll() {
+    this.email = true
+    this.password=true
+  }
+
 }
