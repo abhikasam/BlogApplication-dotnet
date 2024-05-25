@@ -119,6 +119,7 @@ namespace BlogApplication.Server.Controllers
                     {
                         message.Message = "Login successful." + Environment.NewLine + "You will be redirected to Home Page.";
                         message.StatusCode = ResponseStatus.SUCCESS;
+
                         var claims = await userManager.GetClaimsAsync(user);
                         if (claims.Any(i => i.Type == "expires_at"))
                         {

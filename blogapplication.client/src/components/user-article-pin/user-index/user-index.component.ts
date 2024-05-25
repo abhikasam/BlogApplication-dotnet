@@ -4,6 +4,8 @@ import { XPagination } from '../../../model/xpagination.model';
 import { ActivatedRoute } from '@angular/router';
 import { UserArtclePinService } from '../../../services/user-artcle-pin.service';
 import { AuthService } from '../../../services/auth.service';
+import { CdkDragDrop, CdkDragStart, moveItemInArray } from '@angular/cdk/drag-drop';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-user-index',
@@ -12,11 +14,9 @@ import { AuthService } from '../../../services/auth.service';
 })
 export class UserIndexComponent implements OnInit {
   articles: Article[] = []
-  xpagination: XPagination = new XPagination()
   userId: number=0
 
   constructor(
-    private route: ActivatedRoute,
     private userArticlepinService: UserArtclePinService,
     private authService: AuthService
   ) { }
@@ -29,24 +29,20 @@ export class UserIndexComponent implements OnInit {
   }
 
   fetchArticles() {
-    this.userArticlepinService.getArticles(this.xpagination).subscribe((result: any) => {
-      this.articles = result.body as Article[];
+    this.userArticlepinService.getArticles().subscribe((result: Article[]) => {
+      this.articles = result
       this.articles.forEach(i => {
         i.pinnedUsers.push(this.userId)
       })
-      var paginationDetails = result.headers.get("x-pagination")
-      this.xpagination = JSON.parse(paginationDetails)
     })
   }
 
-  updatePage(xpagination: XPagination) {
-    this.userArticlepinService.getArticles(xpagination).subscribe((result: any) => {
-      this.articles = result.body as Article[];
-      this.articles.forEach(i => {
-        i.pinnedUsers.push(this.userId)
-      })
-      var paginationDetails = result.headers.get("x-pagination")
-      this.xpagination = JSON.parse(paginationDetails)
-    })
+  dragStarted(event: CdkDragStart<string[]>, index: number): void {
+    console.log('Drag started at index:', index);
+  }
+
+  drop(event: CdkDragDrop<string[]>) {
+    moveItemInArray(this.articles, event.previousIndex, event.currentIndex);
+    this.userArticlepinService.changeOrder(event.previousIndex, event.currentIndex)
   }
 }

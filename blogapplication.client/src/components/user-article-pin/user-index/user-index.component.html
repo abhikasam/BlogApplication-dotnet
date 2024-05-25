@@ -1,8 +1,8 @@
-<pagination (update)="updatePage($event)"
-            [params]="xpagination"></pagination>
 
-<div class="row">
-  <div class="col-lg-3 col-md-6" *ngFor="let article of articles">
-    <article-model [article]="article"></article-model>
+<div class="row" cdkDropList (cdkDropListDropped)="drop($event)">
+  <div class="col-lg-3 col-md-6" *ngFor="let article of articles;let i = index"
+                    [attr.data-index]="i"
+      >
+    <article-model cdkDrag [article]="article"></article-model>
   </div>
 </div>
