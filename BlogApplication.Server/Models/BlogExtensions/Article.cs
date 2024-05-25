@@ -39,5 +39,31 @@ namespace BlogApplication.Server.Models.Blog
                 return new List<Category>();
             }
         }
+
+        [NotMapped]
+        public List<int> LikedUsers
+        {
+            get
+            {
+                if (UserArticleLikes != null)
+                {
+                    return UserArticleLikes.Select(i => i.UserId).ToList();
+                }
+                return new List<int>();
+            }
+        }
+
+        [NotMapped]
+        public List<int> PinnedUsers
+        {
+            get
+            {
+                if (UserArticlePins != null)
+                {
+                    return UserArticlePins.Select(i=>i.UserId).ToList();
+                }
+                return new();
+            }
+        }
     }
 }

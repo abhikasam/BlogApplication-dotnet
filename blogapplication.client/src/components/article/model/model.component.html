@@ -4,12 +4,12 @@
       {{article.title}}
     </h4>
     <div class="row ms-01 align-items-center">
-        <a [routerLink]="['/authors',article.authorId]" class="col-6 badge bg-warning text-wrap-balance text-center">
-          {{article.author.authorName}}
-        </a>
-        <div class="col-6 publishedOn text-secondary text-end">
-          {{article.publishedOn | dateformat:'DD MMM yyyy' }}
-        </div>
+      <a [routerLink]="['/authors',article.authorId]" class="col-6 badge bg-warning text-wrap-balance text-center">
+        {{article.author.authorName}}
+      </a>
+      <div class="col-6 publishedOn text-secondary text-end">
+        {{article.publishedOn | dateformat:'DD MMM yyyy' }}
+      </div>
     </div>
     <div>
       <ng-container *ngFor="let category of article.categories">
@@ -22,9 +22,11 @@
       {{article.content | textshorter:100}}
       <i class="bi bi-box-arrow-up-right cursor-pointer" (click)="openArticle()"></i>
     </p>
+    <div *authorized="true" class="">
+      <i *ngIf="!isliked" class="bi bi-heart me-1 ms-2" (click)="likeArticle(true)"></i>
+      <i *ngIf="isliked" class="bi bi-heart-fill me-1 ms-1" (click)="likeArticle(false)"></i>
+      <i *ngIf="!isPinned" class="bi bi-pin-angle me-1 ms-1" (click)="pinArticle(true)"></i>
+      <i *ngIf="isPinned" class="bi bi-pin-angle-fill me-2 ms-1" (click)="pinArticle(false)"></i>
+    </div>
   </div>
 </div>
-<div>
-
-</div>
-

@@ -3,6 +3,9 @@ import { Injectable } from "@angular/core";
 import { Article } from "../model/article.model";
 import { ArticleFilter } from "../model/article.filter";
 import { XPagination } from "../model/xpagination.model";
+import { ResponseMessage } from "../model/response-message.model";
+import { UserArticleLike } from "../model/user-article-like.model";
+import { UserArticlePin } from "../model/user-article-pin.model";
 
 @Injectable({
   providedIn:'root'
@@ -29,5 +32,13 @@ export class ArticleService {
     return this.http.get<Article[]>('/api/article/' + authors + '/' + categories, { headers: httpHeaders, observe:'response' })
   }
 
+
+  likeArticle(userArticleLike: UserArticleLike) {
+    return this.http.post<ResponseMessage>('/api/article/like', userArticleLike)
+  }
+
+  pinArticle(userArticlePin: UserArticlePin) {
+    return this.http.post<ResponseMessage>('/api/article/pin', userArticlePin)
+  }
 
 }

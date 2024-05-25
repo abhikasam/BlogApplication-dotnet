@@ -29,7 +29,9 @@ namespace BlogApplication.Server.Controllers
             var articles = blogContext.Articles
                 .AsNoTracking()
                 .Include(i => i.ArticleCategories).ThenInclude(i => i.Category).DefaultIfEmpty()
-                .Include(i => i.Author).DefaultIfEmpty();
+                .Include(i => i.Author).DefaultIfEmpty()
+                .Include(i=>i.UserArticleLikes).DefaultIfEmpty()
+                .Include(i=>i.UserArticlePins).DefaultIfEmpty();
 
             articles=XPagination.GetPaginatedResult(articles,xpagination);
 
@@ -59,5 +61,54 @@ namespace BlogApplication.Server.Controllers
             xpagination.SetXPagination(Response);
             return articles;
         }
+
+
+        [HttpPost("like")]
+        public JsonResult LikeArticle([FromBody]UserArticleLike userArticleLike)
+        {
+            var userLiked = blogContext.UserArticleLikes.FirstOrDefault(i=>i.UserId== userArticleLike.UserId && i.ArticleId== userArticleLike.ArticleId);
+            if(userLiked == null && userArticleLike.Liked)
+            {
+                blogContext.UserArticleLikes.Add(new UserArticleLike()
+                {
+                    ArticleId = userArticleLike.ArticleId,
+                    UserId = userArticleLike.UserId
+                });
+                blogContext.SaveChanges();
+            }
+            if(userArticleLike!=null && !userArticleLike.Liked) 
+            {
+                blogContext.UserArticleLikes.Remove(userLiked);
+                blogContext.SaveChanges();
+            }
+            return new JsonResult(new ResponseMessage()
+            {
+                StatusCode=ResponseStatus.SUCCESS
+            });
+        }
+
+        [HttpPost("pin")]
+        public JsonResult PinArticle([FromBody] UserArticlePin userArticlePin)
+        {
+            var userPinnedArticles= blogContext.UserArticlePins.Where(i => i.UserId == userArticlePin.UserId);
+            var currentArticle=userPinnedArticles.Where(i=>i.ArticleId==userArticlePin.ArticleId).FirstOrDefault();
+            if(currentArticle==null && userArticlePin.Pinned)
+            {
+                userArticlePin.OrderId=userPinnedArticles.Count()+1;
+                blogContext.UserArticlePins.Add(userArticlePin);
+                blogContext.SaveChanges();
+            }
+            else if(currentArticle!=null && !userArticlePin.Pinned)
+            {
+                blogContext.UserArticlePins.Remove(currentArticle);
+                blogContext.SaveChanges();
+            }
+
+
+            return new JsonResult(new ResponseMessage() { 
+                StatusCode=ResponseStatus.SUCCESS
+            });
+        }
+
     }
 }

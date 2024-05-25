@@ -23,18 +23,5 @@ export class AppComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.authService.getUserSession().subscribe(response => {
-      if (response.authenticated) {
-        sessionStorage.setItem('authenticated', 'true')
-        sessionStorage.setItem('claims', JSON.stringify(response.applicationUser.claims))
-        sessionStorage.setItem('roles', JSON.stringify(response.applicationUser.roles))
-
-        this.authService.authenticated.next(true);
-        this.authService.userDetails.next(response.applicationUser)
-      }
-      else {
-        this.authService.authenticated.next(false)
-      }
-    })
   }  title = 'angularproject.client';
 }

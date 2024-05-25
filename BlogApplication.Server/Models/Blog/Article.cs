@@ -20,4 +20,8 @@ public partial class Article
     public virtual ICollection<ArticleCategory> ArticleCategories { get; set; } = new List<ArticleCategory>();
 
     public virtual Author Author { get; set; }
+
+    public virtual ICollection<UserArticleLike> UserArticleLikes { get; set; } = new List<UserArticleLike>();
+
+    public virtual ICollection<UserArticlePin> UserArticlePins { get; set; } = new List<UserArticlePin>();
 }

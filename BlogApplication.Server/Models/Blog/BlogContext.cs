@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace BlogApplication.Server.Models.Blog;
@@ -24,12 +23,15 @@ public partial class BlogContext : DbContext
 
     public virtual DbSet<Category> Categories { get; set; }
 
+    public virtual DbSet<UserArticleLike> UserArticleLikes { get; set; }
+
+    public virtual DbSet<UserArticlePin> UserArticlePins { get; set; }
+
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         => optionsBuilder.UseSqlServer("Name=BlogDbConnectionString");
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-
         modelBuilder.Entity<Article>(entity =>
         {
             entity.ToTable("Article");
@@ -71,6 +73,26 @@ public partial class BlogContext : DbContext
             entity.ToTable("Category");
 
             entity.Property(e => e.CategoryName).IsRequired();
+        });
+
+        modelBuilder.Entity<UserArticleLike>(entity =>
+        {
+            entity.ToTable("UserArticleLike");
+
+            entity.HasOne(d => d.Article).WithMany(p => p.UserArticleLikes)
+                .HasForeignKey(d => d.ArticleId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_UserArticleLike_Article");
+        });
+
+        modelBuilder.Entity<UserArticlePin>(entity =>
+        {
+            entity.ToTable("UserArticlePin");
+
+            entity.HasOne(d => d.Article).WithMany(p => p.UserArticlePins)
+                .HasForeignKey(d => d.ArticleId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_UserArticlePin_Article");
         });
 
         OnModelCreatingPartial(modelBuilder);

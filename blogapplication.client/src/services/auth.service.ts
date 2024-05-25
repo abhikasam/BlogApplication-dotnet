@@ -26,6 +26,13 @@ export class AuthService {
   
 
   constructor(private http: HttpClient) {
+    this.http.get<UserSession>('/api/login').subscribe(res => {
+      this.authenticated.next(res.authenticated)
+      this.userDetails.next(res.applicationUser)
+      sessionStorage.setItem('authenticated', res.authenticated.toString())
+      sessionStorage.setItem('claims', JSON.stringify(res.applicationUser.claims))
+      sessionStorage.setItem('roles', JSON.stringify(res.applicationUser.roles))
+    })
     this.authenticated.subscribe((res) => {
       this.updateMenubar()
       this.updateSidebar()
@@ -45,10 +52,6 @@ export class AuthService {
 
   loginUser(login: any) {
     return this.http.post<ResponseMessage>('/api/login',login)
-  }
-
-  getUserSession() {
-    return this.http.get<UserSession>('/api/login')
   }
 
   updateSidebar() {

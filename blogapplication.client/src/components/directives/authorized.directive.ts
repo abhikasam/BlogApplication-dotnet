@@ -9,7 +9,6 @@ export class AuthorizedDirective implements OnInit {
 
   @Input() set authorized(authType: boolean) {
     this.authType = authType
-    console.log(this.authType)
   }
 
   constructor(
@@ -28,7 +27,6 @@ export class AuthorizedDirective implements OnInit {
 
   updateView(current:boolean) {
     this.viewContainerRef.clear()
-    console.log(current, this.authType)
     if (current === this.authType) {
       this.viewContainerRef.createEmbeddedView(this.templateRef)
     }

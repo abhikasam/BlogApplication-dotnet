@@ -1,5 +1,5 @@
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
-import { ErrorHandler, NgModule, OnInit } from '@angular/core';
+import { APP_INITIALIZER, ErrorHandler, NgModule, OnInit } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppComponent } from './app.component';
@@ -17,6 +17,9 @@ import { AuthModule } from '../components/auth/auth.module';
 import { GlobalErrorHandler } from '../services/global-error-handler';
 import { HttpErrorInterceptor } from '../services/http-error-interceptor';
 import { DirectivesModule } from '../components/directives/directives.module';
+import { UserSession } from '../model/user.model';
+import { Observable } from 'rxjs';
+import { AuthService } from '../services/auth.service';
 
 @NgModule({
   declarations: [
@@ -42,8 +45,21 @@ import { DirectivesModule } from '../components/directives/directives.module';
     },
     {
       provide: HTTP_INTERCEPTORS, useClass: HttpErrorInterceptor, multi: true
+    },
+    {
+      provide: APP_INITIALIZER,
+      useFactory: initializeApp,
+      deps: [AuthService],
+      multi:true
     }
   ],
   bootstrap: [AppComponent]
 })
-export class AppModule{}
+export class AppModule{ }
+export function initializeApp(authService: AuthService) {
+  return (): Promise<void> => {
+    return new Promise<void>((resolve) => {
+      resolve();
+    })
+  }
+}
