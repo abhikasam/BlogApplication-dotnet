@@ -128,8 +128,8 @@ namespace BlogApplication
             app.UseRouting();
 
             app.UseAuthentication();
-            app.UseAuthorization();
             app.UserAuthenticationMiddleware();
+            app.UseAuthorization();
 
 
             app.UseEndpoints(endpoints =>

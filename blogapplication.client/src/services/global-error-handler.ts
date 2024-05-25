@@ -15,6 +15,7 @@ export class GlobalErrorHandler implements ErrorHandler {
   handleError(error: HttpErrorResponse): void {
     if (error.status == 401) {
       this.authService.signout()
+      this.router.navigate(['/auth/login'])
     }
     this.router.navigate(['/error'], {
       state: {
@@ -22,5 +23,4 @@ export class GlobalErrorHandler implements ErrorHandler {
       }
     })
   }
-
 }

@@ -17,7 +17,7 @@ namespace BlogApplication.Server.Code
         }
 
         public async Task InvokeAsync(HttpContext context)
-        {
+       {
             if (context.User.Identity.IsAuthenticated)
             {
                 var id = context.User.GetUserId();
