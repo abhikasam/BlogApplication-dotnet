@@ -44,5 +44,16 @@ export const MENUBAR_ROUTES: RouteInfo[] = [
     authenticated: [true],
     roles: [],
     claims: []
+  },
+  {
+    path: '/auth/logout',
+    title: 'Logout',
+    icon: '',
+    class: '',
+    extralink: false,
+    submenu: [],
+    authenticated: [true],
+    roles: [],
+    claims: []
   }
 ]

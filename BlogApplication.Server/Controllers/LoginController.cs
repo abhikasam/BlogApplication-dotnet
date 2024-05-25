@@ -1,6 +1,7 @@
 ﻿using BlogApplication.Server.Code;
 using BlogApplication.Server.Models;
 using BlogApplication.Server.Models.Auth;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
@@ -109,6 +110,12 @@ namespace BlogApplication.Server.Controllers
                         return new JsonResult(message);
                     }
 
+                    var claims = await userManager.GetClaimsAsync(user);
+                    if (claims.Any(i => i.Type == "expires_at"))
+                    {
+                        await userManager.RemoveClaimsAsync(user, claims.Where(i => i.Type == "expires_at"));
+                        await signInManager.SignOutAsync();
+                    }
 
                     var result = await signInManager.PasswordSignInAsync(login.Email,
                                         login.Password,
@@ -119,12 +126,6 @@ namespace BlogApplication.Server.Controllers
                     {
                         message.Message = "Login successful." + Environment.NewLine + "You will be redirected to Home Page.";
                         message.StatusCode = ResponseStatus.SUCCESS;
-
-                        var claims = await userManager.GetClaimsAsync(user);
-                        if (claims.Any(i => i.Type == "expires_at"))
-                        {
-                            await userManager.RemoveClaimsAsync(user, claims.Where(i => i.Type == "expires_at"));
-                        }
 
                         var claim = new Claim("expires_at", DateTime.Now.AddMinutes(Startup.SessionExpireMinutes).ToString());
 

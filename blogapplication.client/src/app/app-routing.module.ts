@@ -5,6 +5,7 @@ import { CanloadService } from "../services/canload.service";
 import { AccessDeniedComponent } from "../shared/access-denied/access-denied.component";
 import { DashboardComponent } from "../shared/dashboard/dashboard.component";
 import { ExceptionComponent } from "../shared/exception/exception.component";
+import { LogoutComponent } from "../components/auth/logout/logout.component";
 
 
 export const routes: Routes = [
@@ -45,6 +46,15 @@ export const routes: Routes = [
           authenticated: true
         },
         loadChildren: () => import("./../components/author/author-routing.module").then(m => m.AuthorRoutingModule)
+      },
+      {
+        path: 'auth/logout',
+        canMatch: [CanloadService],
+        data: {
+          authenticated:true
+        },
+        component: LogoutComponent,
+        pathMatch: 'full'
       },
       {
         path: 'auth',

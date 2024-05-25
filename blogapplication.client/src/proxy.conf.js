@@ -12,6 +12,7 @@ const PROXY_CONFIG = [
       "/api/author",
       "/api/register",
       "/api/login",
+      "/api/logout",
       "/api/userarticlelike",
       "/api/userarticlepin"
     ],

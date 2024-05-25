@@ -27,7 +27,6 @@ export class AuthService {
   
 
   constructor(private http: HttpClient) {
-    this.getUserSession()
     this.authenticated.subscribe((res) => {
       this.updateMenubar()
       this.updateSidebar()
@@ -38,7 +37,8 @@ export class AuthService {
   }
 
   getUserSession() {
-     this.http.get<UserSession>('/api/login').subscribe(res => {
+    this.http.get<UserSession>('/api/login').subscribe(res => {
+      console.log(res.authenticated)
       this.authenticated.next(res.authenticated)
       this.userDetails.next(res.applicationUser)
     })
@@ -74,6 +74,10 @@ export class AuthService {
     this.userDetails.next(new UserDetails())
     this.updateSidebar()
     this.updateMenubar()
+  }
+
+  logout() {
+    return this.http.post<boolean>('/api/logout', {})
   }
 
   setRoles(roles: string[]) {

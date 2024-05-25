@@ -31,10 +31,11 @@ export class ArticleFilterComponent implements OnInit {
     this.categoryService.getCategories().subscribe(res => {
       this.categories = res.map(i => new KeyPair(i.categoryId.toString(), i.categoryName))
     })
-
-    this.authorService.getAuthors().subscribe(res => {
-      this.authors = res.map(i => new KeyPair(i.authorId.toString(), i.authorName))
-    })
+    if (this.categories.length) {
+      this.authorService.getAuthors().subscribe(res => {
+        this.authors = res.map(i => new KeyPair(i.authorId.toString(), i.authorName))
+      })
+    }
   }
 
   selectAuthors(items: string[]) {

@@ -29,7 +29,16 @@ namespace BlogApplication.Server.Code
                     var contextClaim = contextClaims.FirstOrDefault(i => i.Type == claim.ClaimType);
                     if (contextClaim.Value!=null)
                     {
-                        contextClaim.Value = claim.ClaimValue;
+                        if (claim.ClaimType == "expires_at")
+                        {
+                            var claimDbValue = Convert.ToDateTime(claim.ClaimValue);
+                            var currentValue = Convert.ToDateTime(contextClaim.Value);
+                            contextClaim.Value = Convert.ToString(claimDbValue > currentValue ? claimDbValue : currentValue);
+                        }
+                        else
+                        {
+                            contextClaim.Value = claim.ClaimValue;
+                        }
                     }
                     else
                     {

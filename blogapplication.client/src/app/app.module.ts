@@ -61,6 +61,7 @@ import { UserarticlepinModule } from '../components/user-article-pin/user-articl
 })
 export class AppModule{ }
 export function initializeApp(authService: AuthService) {
+  authService.getUserSession()
   return (): Promise<void> => {
     return new Promise<void>((resolve) => {
       resolve();

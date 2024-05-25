@@ -16,12 +16,16 @@ export class CanloadService implements CanMatch {
     const r = (route as any)
     var authType = r.data.authenticated ?? false
     console.log(r.path)
-    if (this.authService.authenticated.value == authType)
+    var isAuthenticated=false
+    this.authService.authenticated.subscribe(res => {
+      isAuthenticated=res
+    })
+    if (isAuthenticated == authType)
       return true;
-   if (authType)
-        this.router.navigate(['/auth/login'])
-      else
-        this.router.navigate(['/access-denied'])
+    if (authType)
+      this.router.navigate(['/auth/login'])
+    else
+      this.router.navigate(['/access-denied'])
       return false;
     }
 }
