@@ -10,4 +10,6 @@ public partial class Author
     public string AuthorName { get; set; }
 
     public virtual ICollection<Article> Articles { get; set; } = new List<Article>();
+
+    public virtual ICollection<UserAuthor> UserAuthors { get; set; } = new List<UserAuthor>();
 }

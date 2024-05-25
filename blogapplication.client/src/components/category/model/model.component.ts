@@ -3,6 +3,7 @@ import { Category } from '../../../model/category.model';
 import { ActivatedRoute } from '@angular/router';
 import { CategoryService } from '../../../services/category.service';
 import { XPagination } from '../../../model/xpagination.model';
+import { AuthService } from '../../../services/auth.service';
 
 @Component({
   selector: 'category-model',
@@ -11,17 +12,28 @@ import { XPagination } from '../../../model/xpagination.model';
 })
 export class ModelComponent implements OnInit {
   @Input() category: Category = new Category()
+
   @Input() categoryId: number = 0;
+  isFollowing: boolean = false
+  userId: number=0
 
   xpagination: XPagination = new XPagination()
+
+
 
   constructor
     (
     private route: ActivatedRoute,
-    private categoryService: CategoryService
-  ) { }
+    private categoryService: CategoryService,
+    private authService: AuthService
+  ) {
+  }
 
   ngOnInit(): void {
+    this.authService.userDetails.subscribe(res => {
+      this.userId = parseInt(res.userId)
+    })
+
     if (!this.category.categoryId && !this.categoryId) {
       this.route.params.subscribe(params => {
         if (params["id"]) {
@@ -45,6 +57,7 @@ export class ModelComponent implements OnInit {
   fetchCategory() {
     this.categoryService.getCategory(this.categoryId, this.xpagination).subscribe((result: any) => {
       this.category = result.body as Category;
+      this.category.isFollowing = this.category.users.includes(this.userId)
       var paginationDetails = result.headers.get("x-pagination")
       this.xpagination = JSON.parse(paginationDetails)
     })
@@ -53,9 +66,9 @@ export class ModelComponent implements OnInit {
   updatePage(xpagination: XPagination) {
     this.categoryService.getCategory(this.categoryId, xpagination).subscribe((result: any) => {
       this.category = result.body as Category;
+      this.category.isFollowing = this.category.users.includes(this.userId)
       var paginationDetails = result.headers.get("x-pagination")
       this.xpagination = JSON.parse(paginationDetails)
     })
   }
-
 }

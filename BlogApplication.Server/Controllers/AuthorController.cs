@@ -35,6 +35,7 @@ namespace BlogApplication.Server.Controllers
             var author = blogContext.Authors
                     .AsNoTracking()
                     .Include(i => i.Articles).ThenInclude(i => i.ArticleCategories).ThenInclude(i=>i.Category).DefaultIfEmpty()
+                    .Include(i=>i.UserAuthors).DefaultIfEmpty()
                     .Where(i => i.AuthorId == id).FirstOrDefault();
 
             author.Articles=author.Articles.AsQueryable().Paginate(xpagination).ToList();

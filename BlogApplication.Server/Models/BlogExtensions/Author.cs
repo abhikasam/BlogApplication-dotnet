@@ -5,5 +5,17 @@ namespace BlogApplication.Server.Models.Blog
 {
     public partial class Author
     {
+        [NotMapped]
+        public List<int> Users
+        {
+            get
+            {
+                if (UserAuthors != null)
+                {
+                    return UserAuthors.Select(i => i.UserId).ToList();
+                }
+                return new();
+            }
+        }
     }
 }

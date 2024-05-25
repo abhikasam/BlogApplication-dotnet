@@ -3,6 +3,6 @@ Common
 Scaffold-DbContext Name=CommonDbConnectionString -Provider Microsoft.EntityFrameworkCore.SqlServer -Force -OutputDir Models/Common -Tables [dbo].[ExpertiseSector], [dbo].[ExpertiseSectorMapping]
 
 Blog
-Scaffold-DbContext Name=BlogDbConnectionString -Provider Microsoft.EntityFrameworkCore.SqlServer -Force -OutputDir Models/Blog -Tables [dbo].[Article],[dbo].[ArticleCategory],[dbo].[Category],[dbo].[Author],[dbo].[UserArticleLike],[dbo].[UserArticlePin]
+Scaffold-DbContext Name=BlogDbConnectionString -Provider Microsoft.EntityFrameworkCore.SqlServer -Force -OutputDir Models/Blog -Tables [dbo].[Article],[dbo].[ArticleCategory],[dbo].[Category],[dbo].[Author],[dbo].[UserArticleLike],[dbo].[UserArticlePin],[dbo].[UserAuthor],[dbo].[UserCategory]
 
 

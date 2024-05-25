@@ -27,6 +27,10 @@ public partial class BlogContext : DbContext
 
     public virtual DbSet<UserArticlePin> UserArticlePins { get; set; }
 
+    public virtual DbSet<UserAuthor> UserAuthors { get; set; }
+
+    public virtual DbSet<UserCategory> UserCategories { get; set; }
+
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         => optionsBuilder.UseSqlServer("Name=BlogDbConnectionString");
 
@@ -93,6 +97,26 @@ public partial class BlogContext : DbContext
                 .HasForeignKey(d => d.ArticleId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_UserArticlePin_Article");
+        });
+
+        modelBuilder.Entity<UserAuthor>(entity =>
+        {
+            entity.ToTable("UserAuthor");
+
+            entity.HasOne(d => d.Author).WithMany(p => p.UserAuthors)
+                .HasForeignKey(d => d.AuthorId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_UserAuthor_Author");
+        });
+
+        modelBuilder.Entity<UserCategory>(entity =>
+        {
+            entity.ToTable("UserCategory");
+
+            entity.HasOne(d => d.Category).WithMany(p => p.UserCategories)
+                .HasForeignKey(d => d.CategoryId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_UserCategory_Category");
         });
 
         OnModelCreatingPartial(modelBuilder);

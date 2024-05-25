@@ -24,17 +24,20 @@ namespace BlogApplication.Server.Controllers
         [HttpGet(Name ="GetCategories")]
         public IEnumerable<Category> GetCategories()
         {
-            var categories = blogContext.Categories;
+            int userId=User.GetUserId();
+            var categories = blogContext.Categories.Include(i=>i.UserCategories).DefaultIfEmpty();
             return categories;
         }
 
         [HttpGet("{id}")]
         public Category GetCategory(int id)
         {
+            var userId = User.GetUserId();
             var xpagination = XPagination.GetXPagination(Request);
 
             var category =blogContext.Categories
                         .Include(i=>i.ArticleCategories).ThenInclude(i=>i.Article).ThenInclude(i=>i.Author).DefaultIfEmpty()
+                        .Include(i=>i.UserCategories).DefaultIfEmpty()
                         .Where(i=>i.CategoryId==id)
                         .FirstOrDefault();
 
@@ -44,7 +47,8 @@ namespace BlogApplication.Server.Controllers
             var result = new Category()
             {
                 CategoryId=category.CategoryId,
-                CategoryName=category.CategoryName
+                CategoryName=category.CategoryName,
+                UserCategories=category.UserCategories
             };
 
             foreach (var item in category.ArticleCategories)

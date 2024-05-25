@@ -1,6 +1,5 @@
-<a [routerLink]="['/categories/',categoryId]" class="mb-1 badge bg-info">
-  {{category.categoryName}}
-</a>
+
+<category-view [category]="category"></category-view>
 
 <pagination *ngIf="category.articleCategories.length"
             (update)="updatePage($event)"
