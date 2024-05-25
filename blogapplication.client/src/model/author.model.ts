@@ -7,6 +7,7 @@ export class Author {
     public authorName: string = '',
     public articles: Article[] = [],
     public userAuthors: UserAuthor[] = [],
-    public users: number[]=[]
+    public users: number[] = [],
+    public isFollowing: boolean=false
   ) { }
 }

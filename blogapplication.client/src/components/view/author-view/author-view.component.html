@@ -1,1 +1,7 @@
-<p>author-view works!</p>
+<a class="mb-1 badge bg-warning">
+  <span [routerLink]="['/authors/',author.authorId]" class="cursor-pointer">
+    {{author.authorName}}
+  </span>
+  <i *ngIf="!author.isFollowing" class="ms-2 bi bi-plus-circle-fill text-success cursor-pointer" (click)="authorFollow(true)"></i>
+  <i *ngIf="author.isFollowing" class="ms-2 bi bi-dash-circle-fill text-danger cursor-pointer" (click)="authorFollow(false)"></i>
+</a>

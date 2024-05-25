@@ -1,15 +1,13 @@
 <div class="card">
   <div class="card-body">
+    <div class="col publishedOn text-secondary text-center mb-1">
+      {{article.publishedOn | dateformat:'DD MMM yyyy' }}
+    </div>
     <h4 class="card-title">
       {{article.title}}
     </h4>
-    <div class="row ms-01 align-items-center">
-      <a [routerLink]="['/authors',article.authorId]" class="col-6 badge bg-warning text-wrap-balance text-center">
-        {{article.author.authorName}}
-      </a>
-      <div class="col-6 publishedOn text-secondary text-end">
-        {{article.publishedOn | dateformat:'DD MMM yyyy' }}
-      </div>
+    <div class="row align-items-center">
+      <author-view [author]="article.author"></author-view>
     </div>
     <div>
       <ng-container *ngFor="let category of article.categories">

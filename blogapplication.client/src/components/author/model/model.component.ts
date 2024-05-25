@@ -3,6 +3,8 @@ import { Author } from '../../../model/author.model';
 import { ActivatedRoute } from '@angular/router';
 import { AuthorService } from '../../../services/author.service';
 import { XPagination } from '../../../model/xpagination.model';
+import { AuthService } from '../../../services/auth.service';
+import { UserAuthorService } from '../../../services/user-author.service';
 
 @Component({
   selector: 'author-model',
@@ -12,16 +14,22 @@ import { XPagination } from '../../../model/xpagination.model';
 export class ModelComponent implements OnInit {
   @Input() author: Author = new Author()
   @Input() authorId: number = 0;
+  userId=0
 
   xpagination: XPagination = new XPagination()
 
   constructor
     (
     private route: ActivatedRoute,
-    private authorService: AuthorService
+    private authorService: AuthorService,
+    private authService: AuthService,
+    private userAuthorService: UserAuthorService
     ) { }
 
   ngOnInit(): void {
+    this.authService.userDetails.subscribe(res => {
+      this.userId = parseInt(res.userId)
+    })
     if (!this.author.authorId && !this.authorId) {
       this.route.params.subscribe(params => {
         if (params["id"]) {
@@ -40,11 +48,15 @@ export class ModelComponent implements OnInit {
     else if (!this.author) {
       this.fetchAuthor()
     }
+
+    this.userAuthorService.getAuthors().subscribe()
+
   }
 
   fetchAuthor() {
     this.authorService.getAuthor(this.authorId, this.xpagination).subscribe((result: any) => {
       this.author = result.body as Author;
+      this.author.isFollowing = this.userAuthorService.authors.value.includes(this.userId)
       var paginationDetails = result.headers.get("x-pagination")
       this.xpagination = JSON.parse(paginationDetails)
     })
@@ -53,6 +65,7 @@ export class ModelComponent implements OnInit {
   updatePage(xpagination: any) {
     this.authorService.getAuthor(this.authorId, xpagination).subscribe((result: any) => {
       this.author = result.body as Author;
+      this.author.isFollowing = this.userAuthorService.authors.value.includes(this.userId)
       var paginationDetails = result.headers.get("x-pagination")
       this.xpagination = JSON.parse(paginationDetails)
     })

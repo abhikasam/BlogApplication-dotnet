@@ -4,6 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 import { CategoryService } from '../../../services/category.service';
 import { XPagination } from '../../../model/xpagination.model';
 import { AuthService } from '../../../services/auth.service';
+import { UserCategoryService } from '../../../services/user-category.service';
 
 @Component({
   selector: 'category-model',
@@ -25,7 +26,8 @@ export class ModelComponent implements OnInit {
     (
     private route: ActivatedRoute,
     private categoryService: CategoryService,
-    private authService: AuthService
+    private authService: AuthService,
+    private userCategoryService: UserCategoryService
   ) {
   }
 
@@ -52,12 +54,15 @@ export class ModelComponent implements OnInit {
     else if (!this.category) {
       this.fetchCategory()
     }
+
+    this.userCategoryService.getCategories().subscribe()
+
   }
 
   fetchCategory() {
     this.categoryService.getCategory(this.categoryId, this.xpagination).subscribe((result: any) => {
       this.category = result.body as Category;
-      this.category.isFollowing = this.category.users.includes(this.userId)
+      this.category.isFollowing = this.userCategoryService.categories.value.includes(this.userId)
       var paginationDetails = result.headers.get("x-pagination")
       this.xpagination = JSON.parse(paginationDetails)
     })
@@ -66,7 +71,7 @@ export class ModelComponent implements OnInit {
   updatePage(xpagination: XPagination) {
     this.categoryService.getCategory(this.categoryId, xpagination).subscribe((result: any) => {
       this.category = result.body as Category;
-      this.category.isFollowing = this.category.users.includes(this.userId)
+      this.category.isFollowing = this.userCategoryService.categories.value.includes(this.userId)
       var paginationDetails = result.headers.get("x-pagination")
       this.xpagination = JSON.parse(paginationDetails)
     })

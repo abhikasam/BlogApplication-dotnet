@@ -1,7 +1,7 @@
 <a class="mb-1 badge bg-info">
-  <span [routerLink]="['/categories/',category.categoryId]">
+  <span [routerLink]="['/categories/',category.categoryId]" class="cursor-pointer">
     {{category.categoryName}}
   </span>
-  <i *ngIf="!category.isFollowing"  class="ms-2 bi bi-plus-circle-fill text-success" (click)="categoryFollow(true)"></i>
-  <i *ngIf="category.isFollowing" class="ms-2 bi bi-dash-circle-fill text-danger" (click)="categoryFollow(false)"></i>
+  <i *ngIf="!category.isFollowing"  class="ms-2 bi bi-plus-circle-fill text-success cursor-pointer" (click)="categoryFollow(true)"></i>
+  <i *ngIf="category.isFollowing" class="ms-2 bi bi-dash-circle-fill text-danger cursor-pointer" (click)="categoryFollow(false)"></i>
 </a>

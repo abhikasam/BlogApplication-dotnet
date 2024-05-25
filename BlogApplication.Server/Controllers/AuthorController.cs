@@ -34,7 +34,7 @@ namespace BlogApplication.Server.Controllers
             var xpagination = XPagination.GetXPagination(Request);
             var author = blogContext.Authors
                     .AsNoTracking()
-                    .Include(i => i.Articles).ThenInclude(i => i.ArticleCategories).ThenInclude(i=>i.Category).DefaultIfEmpty()
+                    .Include(i => i.Articles).ThenInclude(i => i.ArticleCategories).ThenInclude(i=>i.Category).ThenInclude(i=>i.UserCategories).DefaultIfEmpty()
                     .Include(i=>i.UserAuthors).DefaultIfEmpty()
                     .Where(i => i.AuthorId == id).FirstOrDefault();
 

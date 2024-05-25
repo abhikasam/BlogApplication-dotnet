@@ -1,6 +1,5 @@
-<a [routerLink]="['/authors/',authorId]" class="mb-1 badge bg-warning">
-  {{author.authorName}}
-</a>
+
+<author-view [author]="author"></author-view>
 
 <pagination *ngIf="author.articles.length"
             (update)="updatePage($event)"

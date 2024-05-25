@@ -5,6 +5,7 @@ import { ModelComponent } from './model/model.component';
 import { AuthorRoutingModule } from './author-routing.module';
 import { ArticleModule } from '../article/article.module';
 import { SharedModule } from '../../shared/shared.module';
+import { ViewModule } from '../view/view.module';
 
 
 
@@ -14,7 +15,7 @@ import { SharedModule } from '../../shared/shared.module';
     ModelComponent
   ],
   imports: [
-    CommonModule, AuthorRoutingModule, ArticleModule, SharedModule
+    CommonModule, AuthorRoutingModule, ArticleModule, SharedModule, ViewModule
   ]
 })
 export class AuthorModule { }
