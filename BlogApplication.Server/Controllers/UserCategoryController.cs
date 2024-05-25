@@ -17,25 +17,36 @@ namespace BlogApplication.Server.Controllers
             this.blogContext = blogContext;
         }
 
+        [HttpGet]
+        public IEnumerable<int> Get()
+        {
+            var userId = HttpContext.User.GetUserId();
+            var userCategories=blogContext.UserCategories
+                            .Where(i=>i.UserId==userId)
+                            .Select(i=>i.UserId);
+            return userCategories;
+        }
+
         [HttpPost("follow")]
-        public JsonResult Follow([FromBody]object obj)
+        public JsonResult Follow([FromBody]UserCategory userCategory)
         {
             int userId = HttpContext.User.GetUserId();
-            var userCategory = JsonConvert.DeserializeObject<UserCategory>(obj.ToString());
 
             var dbUserCategory= blogContext.UserCategories.FirstOrDefault(i=>i.UserId==userId && i.CategoryId==userCategory.CategoryId);
-            if(dbUserCategory==null && userCategory.Following)
+            if(dbUserCategory==null && userCategory.IsFollowing)
             {
                 userCategory.UserId = userId;
                 blogContext.UserCategories.Add(userCategory);
                 blogContext.SaveChanges();
             }
-            else if(dbUserCategory!=null && !userCategory.Following)
+            else if(dbUserCategory!=null && !userCategory.IsFollowing)
             {
                 blogContext.UserCategories.Remove(dbUserCategory);
+                blogContext.SaveChanges();
             }
 
-            return new JsonResult(true);
+            var currentList=blogContext.UserCategories.Where(i=>i.UserId==userId).Select(i=>i.CategoryId).ToList();
+            return new JsonResult(currentList);
         }
 
     }

@@ -22,6 +22,7 @@ import { Observable } from 'rxjs';
 import { AuthService } from '../services/auth.service';
 import { UserArticleLikeModule } from '../components/user-article-like/user-article-like.module';
 import { UserarticlepinModule } from '../components/user-article-pin/user-article-pin.module';
+import { ViewModule } from '../components/view/view.module';
 
 @NgModule({
   declarations: [
@@ -40,6 +41,7 @@ import { UserarticlepinModule } from '../components/user-article-pin/user-articl
     AuthModule,
     UserArticleLikeModule,
     UserarticlepinModule,
+    ViewModule,
     NgIdleModule.forRoot(),
     NgIdleKeepaliveModule.forRoot()
   ],

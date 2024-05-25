@@ -81,6 +81,14 @@ export const routes: Routes = [
         loadChildren: () => import("./../components/user-article-pin/user-article-pin-routing.module").then(m => m.UserArticlePinRoutingModule)
       },
       {
+        path: 'view',
+        canMatch: [CanloadService],
+        data: {
+          authenticated: true
+        },
+        loadChildren:()=> import("./../components/view/view-routing.module").then(m => m.ViewRoutingModule)
+      },
+      {
         path: 'access-denied',
         component: AccessDeniedComponent,
         pathMatch: "full"

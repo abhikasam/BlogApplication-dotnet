@@ -27,8 +27,7 @@ namespace BlogApplication.Server.Controllers
             var xpagination = XPagination.GetXPagination(Request);
 
             var articles = blogContext.Articles
-                .AsNoTracking()
-                .Include(i => i.ArticleCategories).ThenInclude(i => i.Category).DefaultIfEmpty()
+                .Include(i=>i.ArticleCategories).ThenInclude(i=>i.Category).ThenInclude(i=>i.UserCategories).ThenInclude(i=>i.User).DefaultIfEmpty()
                 .Include(i => i.Author).DefaultIfEmpty()
                 .Include(i=>i.UserArticleLikes).DefaultIfEmpty()
                 .Include(i=>i.UserArticlePins).DefaultIfEmpty()
@@ -50,8 +49,7 @@ namespace BlogApplication.Server.Controllers
 
             var articles = blogContext.Articles
                 //.AsSplitQuery()
-                .AsNoTracking()
-                .Include(i => i.ArticleCategories).ThenInclude(i => i.Category).DefaultIfEmpty()
+                .Include(i => i.ArticleCategories).ThenInclude(i => i.Category).ThenInclude(i=>i.UserCategories).ThenInclude(i=>i.User).DefaultIfEmpty()
                 .Include(i => i.Author).DefaultIfEmpty()
                 .Where(i => authorIds.Count() == 0 || authorIds.Contains(i.AuthorId))
                 .Where(i => categoryIds.Count() == 0 || i.ArticleCategories.Select(i => i.CategoryId).Intersect(categoryIds).Count() > 0)

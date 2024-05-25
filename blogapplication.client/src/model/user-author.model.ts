@@ -1,8 +1,9 @@
 export class UserAuthor {
   constructor(
-    private userAuthorId: number = 0,
-    private userId: number = 0,
-    private authorId: number=0
+    public userAuthorId: number = 0,
+    public userId: number = 0,
+    public authorId: number = 0,
+    public isFollowing: boolean=false
   )
   { }
 }

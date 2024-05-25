@@ -23,6 +23,8 @@ public partial class BlogContext : DbContext
 
     public virtual DbSet<Category> Categories { get; set; }
 
+    public virtual DbSet<User> Users { get; set; }
+
     public virtual DbSet<UserArticleLike> UserArticleLikes { get; set; }
 
     public virtual DbSet<UserArticlePin> UserArticlePins { get; set; }
@@ -77,6 +79,23 @@ public partial class BlogContext : DbContext
             entity.ToTable("Category");
 
             entity.Property(e => e.CategoryName).IsRequired();
+        });
+
+        modelBuilder.Entity<User>(entity =>
+        {
+            entity
+                .HasNoKey()
+                .ToView("User");
+
+            entity.Property(e => e.Email).HasMaxLength(256);
+            entity.Property(e => e.FirstName).IsRequired();
+            entity.Property(e => e.Id)
+                .IsRequired()
+                .HasMaxLength(450);
+            entity.Property(e => e.LastName).IsRequired();
+            entity.Property(e => e.NormalizedEmail).HasMaxLength(256);
+            entity.Property(e => e.NormalizedUserName).HasMaxLength(256);
+            entity.Property(e => e.UserName).HasMaxLength(256);
         });
 
         modelBuilder.Entity<UserArticleLike>(entity =>

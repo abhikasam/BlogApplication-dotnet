@@ -8,16 +8,14 @@ import { FormsModule } from '@angular/forms';
 import { SharedModule } from '../../shared/shared.module';
 import { NgbCollapseModule } from '@ng-bootstrap/ng-bootstrap';
 import { ArticleFilterComponent } from './article-filter/article-filter.component';
-import { ArticleViewComponent } from './article-view/article-view.component';
 import { DirectivesModule } from '../../directives/directives.module';
-import { CategoryModule } from '../category/category.module';
-import { CategoryViewComponent } from '../category/category-view/category-view.component';
+import { ViewModule } from '../view/view.module';
 
 @NgModule({
-  declarations: [IndexComponent, ModelComponent, ArticleFilterComponent, ArticleViewComponent],
+  declarations: [IndexComponent, ModelComponent, ArticleFilterComponent],
   exports: [ModelComponent],
   imports: [
-    CommonModule, ArticleRoutingModule, PipesModule, FormsModule, SharedModule, NgbCollapseModule, DirectivesModule
+    CommonModule, ArticleRoutingModule, PipesModule, FormsModule, SharedModule, NgbCollapseModule, DirectivesModule, ViewModule
   ]
 })
 export class ArticleModule { }

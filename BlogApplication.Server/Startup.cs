@@ -39,7 +39,9 @@ namespace BlogApplication
         {
             services.AddControllers().AddNewtonsoftJson(opt =>
             {
+                opt.SerializerSettings.NullValueHandling = NullValueHandling.Ignore;
                 opt.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
+                opt.SerializerSettings.MaxDepth = 10;
                 opt.SerializerSettings.ContractResolver = new DefaultContractResolver()
                 {
                     NamingStrategy = new CamelCaseNamingStrategy()

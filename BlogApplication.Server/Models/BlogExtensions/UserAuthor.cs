@@ -2,7 +2,7 @@
 
 namespace BlogApplication.Server.Models.Blog
 {
-    public partial class UserCategory
+    public partial class UserAuthor
     {
         [NotMapped]
         public bool IsFollowing { get; set; }

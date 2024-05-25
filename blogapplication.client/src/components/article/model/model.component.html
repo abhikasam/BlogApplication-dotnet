@@ -13,9 +13,7 @@
     </div>
     <div>
       <ng-container *ngFor="let category of article.categories">
-        <a [routerLink]="['/categories',category.categoryId]" class="mb-1 me-2 badge bg-info category">
-          {{category.categoryName}}
-        </a>
+        <category-view [category]="category"></category-view>
       </ng-container>
     </div>
     <p class="card-text">

@@ -17,5 +17,7 @@ namespace BlogApplication.Server.Models.Blog
                 return new();
             }
         }
+        [NotMapped]
+        public virtual User User { get; set; }
     }
 }
