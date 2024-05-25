@@ -15,7 +15,7 @@ export class CanloadService implements CanMatch {
   canMatch(route: Route, segments: UrlSegment[]): boolean | UrlTree | Observable<boolean | UrlTree> | Promise<boolean | UrlTree> {
     const r = (route as any)
     var authType = r.data.authenticated ?? false
-    console.log(this.authService.authenticated.value,authType)
+    console.log(r.path)
     if (this.authService.authenticated.value == authType)
       return true;
    if (authType)

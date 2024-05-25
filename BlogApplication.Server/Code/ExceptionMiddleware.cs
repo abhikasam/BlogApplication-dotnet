@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.DotNet.Scaffolding.Shared.Messaging;
+using System;
 
 namespace BlogApplication.Server.Code
 {
@@ -32,26 +33,33 @@ namespace BlogApplication.Server.Code
             switch (ex)
             {
                 case UnauthorizedAccessException _:
-                    if (context.User.Identity.IsAuthenticated)
-                    {
-                        context.Response.StatusCode = StatusCodes.Status404NotFound;
-                    }
-                    else
-                    {
-                        context.Response.StatusCode = StatusCodes.Status401Unauthorized;
-                    }
+                    context.Response.StatusCode = StatusCodes.Status401Unauthorized;
                     break;
                 default:
                     context.Response.StatusCode = StatusCodes.Status500InternalServerError;
                     break;
             }
-            var response = new
+
+            if (!context.User.Identity.IsAuthenticated)
             {
-                StatusCode = context.Response.StatusCode,
-                Message = "Internal Server Error. Please try again later.",
-                Detailed = ex.Message // You might want to remove this in production
-            };
-            return context.Response.WriteAsync(JsonHelper.Serialize(response));
+                var response = new
+                {
+                    StatusCode = StatusCodes.Status404NotFound,
+                    Message = "Please sign in",
+                    Detailed = ex.Message
+                };
+                return context.Response.WriteAsync(JsonHelper.Serialize(response));
+            }
+            else
+            {
+                var response = new
+                {
+                    StatusCode = context.Response.StatusCode,
+                    Message = "Internal Server Error. Please try again later.",
+                    Detailed = ex.Message // You might want to remove this in production
+                };
+                return context.Response.WriteAsync(JsonHelper.Serialize(response));
+            }
         }
     }
 }

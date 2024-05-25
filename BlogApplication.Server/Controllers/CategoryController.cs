@@ -38,8 +38,7 @@ namespace BlogApplication.Server.Controllers
                         .Where(i=>i.CategoryId==id)
                         .FirstOrDefault();
 
-            category.ArticleCategories = XPagination.GetPaginatedResult(category.ArticleCategories.AsQueryable()
-                            ,xpagination)
+            category.ArticleCategories = category.ArticleCategories.AsQueryable().Paginate(xpagination)
                             .ToList();
 
             var result = new Category()

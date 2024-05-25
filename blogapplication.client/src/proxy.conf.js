@@ -11,7 +11,9 @@ const PROXY_CONFIG = [
       "/api/category",
       "/api/author",
       "/api/register",
-      "/api/login"
+      "/api/login",
+      "/api/userarticlelike",
+      "/api/userarticlepin"
     ],
     target,
     secure: false

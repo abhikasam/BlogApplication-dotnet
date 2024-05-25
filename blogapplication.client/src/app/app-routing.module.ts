@@ -55,6 +55,22 @@ export const routes: Routes = [
         loadChildren: () => import("./../components/auth/auth-routing.module").then(m => m.AuthRoutingModule)
       },
       {
+        path: 'userarticlelike',
+        canMatch: [CanloadService],
+        data: {
+          authenticated: true
+        },
+        loadChildren: () => import("./../components/user-article-like/user-article-like-routing.module").then(m => m.UserArticleLikeRoutingModule)
+      },
+      {
+        path: 'userarticlepin',
+        canMatch: [CanloadService],
+        data: {
+          authenticated: true
+        },
+        loadChildren: () => import("./../components/user-article-pin/user-article-pin-routing.module").then(m => m.UserArticlePinRoutingModule)
+      },
+      {
         path: 'access-denied',
         component: AccessDeniedComponent,
         pathMatch: "full"

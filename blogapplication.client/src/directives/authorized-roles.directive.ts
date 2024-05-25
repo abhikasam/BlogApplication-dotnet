@@ -1,6 +1,6 @@
 import { Directive, Injectable, Input, TemplateRef, ViewContainerRef } from '@angular/core';
 import { BehaviorSubject, Observable, Subscription } from 'rxjs';
-import { AuthService } from '../../services/auth.service';
+import { AuthService } from '../services/auth.service';
 
 @Directive({
   selector: '[authroles]'

@@ -114,29 +114,3 @@ export const SIDEBAR_ROUTES: RouteInfo[] = [
   }
 ];
 
-
-export const MENUBAR_ROUTES: RouteInfo[] = [
-  {
-    path: '/auth/login',
-    title: 'Login',
-    icon: '',
-    class: '',
-    extralink: false,
-    submenu: [],
-    authenticated: [false],
-    roles: [],
-    claims: []
-  },
-  {
-    path: '/auth/register',
-    title: 'Register',
-    icon: '',
-    class: '',
-    extralink: false,
-    submenu: [],
-    authenticated: [false],
-    roles: [],
-    claims: []
-  },
-
-]

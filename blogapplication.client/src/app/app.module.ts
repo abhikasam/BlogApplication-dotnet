@@ -16,10 +16,12 @@ import { NgIdleKeepaliveModule } from '@ng-idle/keepalive';
 import { AuthModule } from '../components/auth/auth.module';
 import { GlobalErrorHandler } from '../services/global-error-handler';
 import { HttpErrorInterceptor } from '../services/http-error-interceptor';
-import { DirectivesModule } from '../components/directives/directives.module';
+import { DirectivesModule } from '../directives/directives.module';
 import { UserSession } from '../model/user.model';
 import { Observable } from 'rxjs';
 import { AuthService } from '../services/auth.service';
+import { UserArticleLikeModule } from '../components/user-article-like/user-article-like.module';
+import { UserarticlepinModule } from '../components/user-article-pin/user-article-pin.module';
 
 @NgModule({
   declarations: [
@@ -36,6 +38,8 @@ import { AuthService } from '../services/auth.service';
     CategoryModule,
     AuthorModule,
     AuthModule,
+    UserArticleLikeModule,
+    UserarticlepinModule,
     NgIdleModule.forRoot(),
     NgIdleKeepaliveModule.forRoot()
   ],

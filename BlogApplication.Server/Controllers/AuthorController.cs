@@ -37,7 +37,7 @@ namespace BlogApplication.Server.Controllers
                     .Include(i => i.Articles).ThenInclude(i => i.ArticleCategories).ThenInclude(i=>i.Category).DefaultIfEmpty()
                     .Where(i => i.AuthorId == id).FirstOrDefault();
 
-            author.Articles=XPagination.GetPaginatedResult(author.Articles.AsQueryable(),xpagination).ToList();
+            author.Articles=author.Articles.AsQueryable().Paginate(xpagination).ToList();
 
             foreach(var article in author.Articles)
             {

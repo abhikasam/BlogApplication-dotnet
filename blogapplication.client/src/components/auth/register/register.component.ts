@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { CustomValidatorService } from '../../directives/custom-validator.directive';
+import { CustomValidatorService } from '../../../directives/custom-validator.directive';
 import { AuthService } from '../../../services/auth.service';
 import { ResponseMessage } from '../../../model/response-message.model';
 import { ActivatedRoute, Router } from '@angular/router';

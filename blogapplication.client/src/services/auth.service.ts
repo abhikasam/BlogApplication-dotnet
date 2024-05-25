@@ -6,7 +6,8 @@ import { Login } from '../model/login.model';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { UserDetails, UserSession } from '../model/user.model';
 import { RouteInfo } from '../shared/sidebar/sidebar.metadata';
-import { MENUBAR_ROUTES, SIDEBAR_ROUTES } from '../shared/sidebar/menu-items';
+import { SIDEBAR_ROUTES } from '../shared/sidebar/menu-items';
+import { MENUBAR_ROUTES } from '../shared/header/navmenu-items';
 
 @Injectable({
   providedIn: 'root'

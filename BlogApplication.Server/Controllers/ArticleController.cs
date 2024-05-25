@@ -31,9 +31,8 @@ namespace BlogApplication.Server.Controllers
                 .Include(i => i.ArticleCategories).ThenInclude(i => i.Category).DefaultIfEmpty()
                 .Include(i => i.Author).DefaultIfEmpty()
                 .Include(i=>i.UserArticleLikes).DefaultIfEmpty()
-                .Include(i=>i.UserArticlePins).DefaultIfEmpty();
-
-            articles=XPagination.GetPaginatedResult(articles,xpagination);
+                .Include(i=>i.UserArticlePins).DefaultIfEmpty()
+                .Paginate(xpagination);
 
             xpagination.SetXPagination(Response);
             return articles;
@@ -55,9 +54,9 @@ namespace BlogApplication.Server.Controllers
                 .Include(i => i.ArticleCategories).ThenInclude(i => i.Category).DefaultIfEmpty()
                 .Include(i => i.Author).DefaultIfEmpty()
                 .Where(i => authorIds.Count() == 0 || authorIds.Contains(i.AuthorId))
-                .Where(i => categoryIds.Count() == 0 || i.ArticleCategories.Select(i => i.CategoryId).Intersect(categoryIds).Count() > 0);
+                .Where(i => categoryIds.Count() == 0 || i.ArticleCategories.Select(i => i.CategoryId).Intersect(categoryIds).Count() > 0)
+                .Paginate(xpagination);
 
-            articles = XPagination.GetPaginatedResult(articles,xpagination);
             xpagination.SetXPagination(Response);
             return articles;
         }

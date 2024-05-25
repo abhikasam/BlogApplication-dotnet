@@ -7,7 +7,7 @@ import { NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
 import { AccessDeniedComponent } from './access-denied/access-denied.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { ExceptionComponent } from './exception/exception.component';
-import { DirectivesModule } from '../components/directives/directives.module';
+import { DirectivesModule } from '../directives/directives.module';
 
 
 
