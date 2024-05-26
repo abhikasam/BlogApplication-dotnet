@@ -4,13 +4,14 @@ import { NgbDropdownModule, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { AuthService } from '../../services/auth.service';
 import { RouteInfo } from '../sidebar/sidebar.metadata';
 import { CommonModule } from '@angular/common';
+import { DirectivesModule } from '../../directives/directives.module';
 
 declare var $: any;
 
 @Component({
   selector: 'app-navigation',
   standalone: true,
-  imports: [NgbDropdownModule, RouterModule, CommonModule],
+  imports: [NgbDropdownModule, RouterModule, CommonModule, DirectivesModule],
   templateUrl: './navigation.component.html'
 })
 export class NavigationComponent implements OnInit {

@@ -11,7 +11,7 @@ namespace BlogApplication.Server.Models
         public string UserId { get; set; }
         public List<string> Claims { get; set; } = new();
         public List<string> Roles { get; set; } = new();
-        public static UserDetails GetDetails(IEnumerable<Claim> claims)
+        public static UserDetails GetDetails(IEnumerable<Claim> claims,IList<string> roles)
         {
             var claimtypes = claims.Select(i => i.Type).ToList();
             return new UserDetails()
@@ -21,7 +21,8 @@ namespace BlogApplication.Server.Models
                 FullName = claims.FirstOrDefault(i => i.Type == "FullName")?.Value,
                 Email = claims.FirstOrDefault(i => i.Type == "Email")?.Value,
                 UserId = claims.FirstOrDefault(i => i.Type == "UserId")?.Value,
-                Claims = claimtypes
+                Claims = claimtypes,
+                Roles = roles.ToList()
             };
         }
     }

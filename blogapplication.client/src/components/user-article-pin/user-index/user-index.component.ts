@@ -37,10 +37,6 @@ export class UserIndexComponent implements OnInit {
     })
   }
 
-  dragStarted(event: CdkDragStart<string[]>, index: number): void {
-    console.log('Drag started at index:', index);
-  }
-
   drop(event: CdkDragDrop<string[]>) {
     moveItemInArray(this.articles, event.previousIndex, event.currentIndex);
     this.userArticlepinService.changeOrder(event.previousIndex, event.currentIndex)

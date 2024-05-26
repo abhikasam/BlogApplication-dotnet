@@ -3,7 +3,7 @@
 <!-- ============================================================== -->
 <ul class="navbar-nav float-start me-auto">
   <li class="nav-item" *ngFor="let navItem of navItems">
-    <a class="nav-link waves-effect waves-dark" [routerLink]="[navItem.path]"> {{navItem.title}} </a>
+    <a *authroles="navItem.roles" class="nav-link waves-effect waves-dark" [routerLink]="[navItem.path]"> {{navItem.title}} </a>
   </li>
   <!-- ============================================================== -->
   <!-- create new -->

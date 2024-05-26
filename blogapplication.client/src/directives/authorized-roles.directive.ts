@@ -22,16 +22,14 @@ export class AuthorizedRolesDirective {
     private viewContainer: ViewContainerRef
   )
   {
-    authService.roles.subscribe(() => {
-      this.updateView()
-    })
+    this.updateView()
   }
 
 
   updateView() {
     this.viewContainer.clear()
     const userroles = this.authService.getRoles()
-    if (this.roles.some(r => userroles.includes(r))) {
+    if (!this.roles.length || this.roles.some(r => userroles.includes(r))) {
       this.viewContainer.createEmbeddedView(this.templateRef)
     }
   }

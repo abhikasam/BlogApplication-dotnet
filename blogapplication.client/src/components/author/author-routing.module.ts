@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { RouterModule, Routes } from '@angular/router';
 import { IndexComponent } from './index/index.component';
 import { ModelComponent } from './model/model.component';
+import { FollowersComponent } from './followers/followers.component';
 
 const routes: Routes = [
   {
@@ -14,6 +15,11 @@ const routes: Routes = [
     path: ':id',
     component: ModelComponent,
     pathMatch:"full"
+  },
+  {
+    path: 'followers',
+    component: FollowersComponent,
+    pathMatch: 'full'
   }
 ]
 

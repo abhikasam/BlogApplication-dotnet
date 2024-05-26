@@ -28,7 +28,6 @@ export class CategoryViewComponent implements OnInit {
 
   categoryFollow(follow: boolean) {
     let userCategory = new UserCategory(0, this.userId, this.category.categoryId, follow)
-    console.log(userCategory)
     this.userCategoryService.followCategory(userCategory).subscribe(res => {
       this.category.isFollowing = follow
       this.userCategoryService.categories.next(res)

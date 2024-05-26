@@ -24,7 +24,6 @@ export class UserArtclePinService {
     return this.http.post<ResponseMessage>('/api/userarticlepin/changeOrder',{
       from, to
     }).subscribe(res => {
-      console.log(res)
     })
   }
 

@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Author } from '../model/author.model';
 import { ArticleFilter } from '../model/article.filter';
 import { XPagination } from '../model/xpagination.model';
+import { User } from '../model/user.model';
 
 @Injectable({
   providedIn: 'root'
@@ -22,4 +23,10 @@ export class AuthorService {
     })
     return this.http.get<any>('/api/author/' + id, { observe: 'response', headers: httpHeaders })
   }
+  getFollowers() {
+    console.log('calling')
+    return this.http.get<User[]>('/api/author/followers')
+  }
+
+
 }

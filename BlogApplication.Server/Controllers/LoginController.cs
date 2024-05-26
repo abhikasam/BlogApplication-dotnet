@@ -41,6 +41,7 @@ namespace BlogApplication.Server.Controllers
                 var id = User.GetUserId();
                 var user = await userManager.FindByUserIdAsync(id);
                 var claims = await userManager.GetClaimsAsync(user);
+                var roles=await userManager.GetRolesAsync(user);
                 var expiresAt = claims.Where(i => i.Type == "expires_at").FirstOrDefault();
                 if (expiresAt == null)
                 {
@@ -69,7 +70,7 @@ namespace BlogApplication.Server.Controllers
                 return new JsonResult(new
                 {
                     Authenticated = true,
-                    ApplicationUser = UserDetails.GetDetails(claims.AsEnumerable()),
+                    ApplicationUser = UserDetails.GetDetails(claims.AsEnumerable(),roles),
                     ExpiresIn = expireTimeSpan.TotalSeconds
                 });
             }
@@ -134,7 +135,8 @@ namespace BlogApplication.Server.Controllers
                         var claimIdentity = new ClaimsIdentity(claims,Startup.AuthenticationType);
                         HttpContext.User=new ClaimsPrincipal(claimIdentity);
                         claims = await userManager.GetClaimsAsync(user);
-                        message.Data = UserDetails.GetDetails(claims.AsEnumerable());
+                        var roles=await userManager.GetRolesAsync(user);
+                        message.Data = UserDetails.GetDetails(claims.AsEnumerable(),roles);
                     }
                     else
                     {

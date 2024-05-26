@@ -1,6 +1,9 @@
 ﻿using BlogApplication.Server.Code;
+using BlogApplication.Server.Models.Auth;
 using BlogApplication.Server.Models.Blog;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BlogApplication.Server.Controllers
@@ -10,10 +13,11 @@ namespace BlogApplication.Server.Controllers
     public class UserAuthorController : ControllerBase
     {
         private readonly BlogContext blogContext;
-
-        public UserAuthorController(BlogContext blogContext)
+        private readonly AuthContext authContext;
+        public UserAuthorController(BlogContext blogContext,AuthContext authContext)
         {
             this.blogContext = blogContext;
+            this.authContext = authContext;
         }
 
         [HttpGet]

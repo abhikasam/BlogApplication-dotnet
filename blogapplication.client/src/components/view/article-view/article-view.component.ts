@@ -39,7 +39,6 @@ export class ArticleViewComponent implements OnInit {
   updateCategories() {
     this.userCategoryService.getCategories().subscribe(res => {
       this.categories = res
-      console.log(this.categories)
       this.article.categories.forEach(cat => {
         cat.isFollowing = this.categories.includes(cat.categoryId)
       })

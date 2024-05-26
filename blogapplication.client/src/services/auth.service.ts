@@ -4,7 +4,7 @@ import { Register } from '../model/register.model';
 import { ResponseMessage } from '../model/response-message.model';
 import { Login } from '../model/login.model';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { UserDetails, UserSession } from '../model/user.model';
+import { User, UserDetails, UserSession } from '../model/user.model';
 import { RouteInfo } from '../shared/sidebar/sidebar.metadata';
 import { SIDEBAR_ROUTES } from '../shared/sidebar/menu-items';
 import { MENUBAR_ROUTES } from '../shared/header/navmenu-items';
@@ -23,8 +23,6 @@ export class AuthService {
   sidebarItems = new BehaviorSubject<RouteInfo[]>([])
   menuItems = new BehaviorSubject<RouteInfo[]>([])
 
-  roles: BehaviorSubject<string[]> = new BehaviorSubject<string[]>([])
-  
 
   constructor(private http: HttpClient) {
     this.authenticated.subscribe((res) => {
@@ -38,7 +36,6 @@ export class AuthService {
 
   getUserSession() {
     this.http.get<UserSession>('/api/login').subscribe(res => {
-      console.log(res.authenticated)
       this.authenticated.next(res.authenticated)
       this.userDetails.next(res.applicationUser)
     })
@@ -70,7 +67,6 @@ export class AuthService {
 
   signout() {
     this.authenticated.next(false)
-    this.roles.next([])
     this.userDetails.next(new UserDetails())
     this.updateSidebar()
     this.updateMenubar()
@@ -81,11 +77,12 @@ export class AuthService {
   }
 
   setRoles(roles: string[]) {
-    this.roles.next(roles)
+    let currentUserDetails = { ...this.userDetails.value }
+    currentUserDetails.roles = roles
+    this.userDetails.next(currentUserDetails)
   }
 
   getRoles() {
-    return this.roles.value
+    return this.userDetails.value.roles
   }
-
 }

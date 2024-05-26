@@ -46,6 +46,17 @@ export const MENUBAR_ROUTES: RouteInfo[] = [
     claims: []
   },
   {
+    path: '/authors/followers',
+    title: 'Followers',
+    icon: '',
+    class: '',
+    extralink: false,
+    submenu: [],
+    authenticated: [true],
+    roles: ['AUTHOR'],
+    claims: []
+  },
+  {
     path: '/auth/logout',
     title: 'Logout',
     icon: '',
@@ -55,5 +66,5 @@ export const MENUBAR_ROUTES: RouteInfo[] = [
     authenticated: [true],
     roles: [],
     claims: []
-  }
+  },
 ]

@@ -1,4 +1,5 @@
 ﻿using BlogApplication.Server.Code;
+using BlogApplication.Server.Models.Auth;
 using BlogApplication.Server.Models.Blog;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -16,10 +17,12 @@ namespace BlogApplication.Server.Controllers
     public class AuthorController : ControllerBase
     {
         private readonly BlogContext blogContext;
+        private readonly AuthContext authContext;
 
-        public AuthorController(BlogContext blogContext)
+        public AuthorController(BlogContext blogContext,AuthContext authContext)
         {
             this.blogContext = blogContext;
+            this.authContext = authContext;
         }
 
         [HttpGet]
@@ -53,5 +56,16 @@ namespace BlogApplication.Server.Controllers
 
             return author;
         }
+        [HttpGet("followers")]
+        [Authorize(Roles = "AUTHOR")]
+        public IEnumerable<ApplicationUser> Users()
+        {
+            var user = HttpContext.User;
+            var author = blogContext.Authors.FirstOrDefault(i => i.AuthorName == user.GetFullName());
+            var userIds = blogContext.UserAuthors.Where(i => i.AuthorId == author.AuthorId).Select(i => i.UserId).ToList();
+            var users = authContext.Users.Where(i => userIds.Contains(i.UserId));
+            return users;
+        }
+
     }
 }

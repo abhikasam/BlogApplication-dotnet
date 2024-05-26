@@ -13,7 +13,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 export class RegisterComponent implements OnInit {
 
   passwordValidator: RegExp = /^\S*(?=\S{8,})(?=\S*\d)(?=\S*[A-Z])(?=\S*[a-z])(?=\S*[!@#$%^&*? ])\S*$/;
-  nameValidator: RegExp = /^[A-Z][a-zA-Z ]+$/;
+  nameValidator: RegExp = /^[a-zA-Z][a-zA-Z ]+$/;
 
   responseMessage: ResponseMessage = new ResponseMessage()
 
@@ -57,7 +57,7 @@ export class RegisterComponent implements OnInit {
   onSubmit() {
     this.submitButtonClicked = true
     this.displayValidation.displayAll()
-    this.authService.registerUser(this.registerForm).subscribe(res => {
+    this.authService.registerUser(this.registerForm.value).subscribe(res => {
       this.responseMessage = res;
       if (this.responseMessage.statusCode === 1) {
         setTimeout(() => {
